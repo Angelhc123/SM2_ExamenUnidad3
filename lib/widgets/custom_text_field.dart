@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onTap;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.label,
     this.hint,
     this.controller,
@@ -28,7 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.enabled = true,
     this.maxLines = 1,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
             color: Colors.grey[700],
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextFormField(
           controller: controller,
           validator: validator,
@@ -71,11 +71,11 @@ class CustomTextField extends StatelessWidget {
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: const BorderSide(color: Colors.red),
             ),
             filled: !enabled,
             fillColor: enabled ? null : Colors.grey[100],
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           ),
         ),
       ],

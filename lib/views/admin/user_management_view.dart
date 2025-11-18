@@ -7,8 +7,10 @@ import '../../widgets/custom_text_field.dart';
 import '../../widgets/status_widgets.dart';
 
 class UserManagementView extends StatefulWidget {
+  const UserManagementView({super.key});
+
   @override
-  _UserManagementViewState createState() => _UserManagementViewState();
+  State<UserManagementView> createState() => _UserManagementViewState();
 }
 
 class _UserManagementViewState extends State<UserManagementView> {
@@ -26,7 +28,7 @@ class _UserManagementViewState extends State<UserManagementView> {
   }
 
   void _showCreateUserDialog() {
-    showDialog(context: context, builder: (context) => CreateUserDialog());
+    showDialog(context: context, builder: (context) => const CreateUserDialog());
   }
 
   void _showChangePasswordDialog(UsuarioModel usuario) {
@@ -50,9 +52,9 @@ class _UserManagementViewState extends State<UserManagementView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(adminViewModel.errorMessage!, textAlign: TextAlign.center),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomButton(text: 'Reintentar', onPressed: _loadUsuarios),
             ],
           );
@@ -64,7 +66,7 @@ class _UserManagementViewState extends State<UserManagementView> {
             children: [
               // Header con botón para crear usuario
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -72,7 +74,7 @@ class _UserManagementViewState extends State<UserManagementView> {
                       color: Colors.grey.withOpacity(0.1),
                       spreadRadius: 1,
                       blurRadius: 4,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -101,8 +103,8 @@ class _UserManagementViewState extends State<UserManagementView> {
               if (adminViewModel.successMessage != null)
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.all(16),
-                  padding: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.green[50],
                     border: Border.all(color: Colors.green[200]!),
@@ -115,7 +117,7 @@ class _UserManagementViewState extends State<UserManagementView> {
                         color: Colors.green[600],
                         size: 20,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           adminViewModel.successMessage!,
@@ -123,7 +125,7 @@ class _UserManagementViewState extends State<UserManagementView> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.close, size: 18),
+                        icon: const Icon(Icons.close, size: 18),
                         onPressed: () => adminViewModel.clearMessages(),
                       ),
                     ],
@@ -133,8 +135,8 @@ class _UserManagementViewState extends State<UserManagementView> {
               if (adminViewModel.errorMessage != null)
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.all(16),
-                  padding: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.red[50],
                     border: Border.all(color: Colors.red[200]!),
@@ -143,7 +145,7 @@ class _UserManagementViewState extends State<UserManagementView> {
                   child: Row(
                     children: [
                       Icon(Icons.error, color: Colors.red[600], size: 20),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           adminViewModel.errorMessage!,
@@ -151,7 +153,7 @@ class _UserManagementViewState extends State<UserManagementView> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.close, size: 18),
+                        icon: const Icon(Icons.close, size: 18),
                         onPressed: () => adminViewModel.clearMessages(),
                       ),
                     ],
@@ -161,7 +163,7 @@ class _UserManagementViewState extends State<UserManagementView> {
               // Lista de usuarios
               Expanded(
                 child: ListView.builder(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   itemCount: adminViewModel.usuarios.length,
                   itemBuilder: (context, index) {
                     final usuario = adminViewModel.usuarios[index];
@@ -178,10 +180,10 @@ class _UserManagementViewState extends State<UserManagementView> {
 
   Widget _buildUserCard(UsuarioModel usuario) {
     return Card(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
       child: ListTile(
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(16),
         leading: CircleAvatar(
           backgroundColor:
               usuario.isAdmin ? Colors.purple[100] : Colors.blue[100],
@@ -192,12 +194,12 @@ class _UserManagementViewState extends State<UserManagementView> {
         ),
         title: Text(
           usuario.nombreCompleto,
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text('Email: ${usuario.email}'),
             Text('DNI: ${usuario.dni}'),
             Text('Rango: ${usuario.rango}'),
@@ -218,11 +220,12 @@ class _UserManagementViewState extends State<UserManagementView> {
                       adminViewModel.isLoading
                           ? null
                           : (bool value) async {
+                            final messenger = ScaffoldMessenger.of(context);
                             final success = await adminViewModel
                                 .toggleUserStatus(usuario.id, value);
                             if (!success && mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                              messenger.showSnackBar(
+                                const SnackBar(
                                   content: Text(
                                     '❌ Error al cambiar estado del usuario',
                                   ),
@@ -236,7 +239,7 @@ class _UserManagementViewState extends State<UserManagementView> {
             ),
             // Estado del usuario
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: usuario.isActive ? Colors.green[100] : Colors.red[100],
                 borderRadius: BorderRadius.circular(12),
@@ -259,7 +262,7 @@ class _UserManagementViewState extends State<UserManagementView> {
               },
               itemBuilder:
                   (context) => [
-                    PopupMenuItem(
+                    const PopupMenuItem(
                       value: 'change_password',
                       child: Row(
                         children: [
@@ -279,8 +282,10 @@ class _UserManagementViewState extends State<UserManagementView> {
 }
 
 class CreateUserDialog extends StatefulWidget {
+  const CreateUserDialog({super.key});
+
   @override
-  _CreateUserDialogState createState() => _CreateUserDialogState();
+  State<CreateUserDialog> createState() => _CreateUserDialogState();
 }
 
 class _CreateUserDialogState extends State<CreateUserDialog> {
@@ -340,8 +345,8 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Crear Nuevo Usuario'),
-      content: Container(
+      title: const Text('Crear Nuevo Usuario'),
+      content: SizedBox(
         width: double.maxFinite,
         child: Form(
           key: _formKey,
@@ -359,7 +364,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextField(
                   label: 'Apellido',
@@ -371,7 +376,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextField(
                   label: 'DNI',
@@ -384,7 +389,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextField(
                   label: 'Email',
@@ -402,7 +407,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextField(
                   label: 'Contraseña',
@@ -418,7 +423,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Selector de rango
                 DropdownButtonFormField<String>(
@@ -429,7 +434,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  items: [
+                  items: const [
                     DropdownMenuItem(value: 'guardia', child: Text('Guardia')),
                     DropdownMenuItem(
                       value: 'admin',
@@ -442,14 +447,14 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
                     });
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextField(
                   label: 'Teléfono (Opcional)',
                   controller: _telefonoController,
                   keyboardType: TextInputType.phone,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 CustomTextField(
                   label: 'Puerta a Cargo (Opcional)',
@@ -463,7 +468,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancelar'),
+          child: const Text('Cancelar'),
         ),
         Consumer<AdminViewModel>(
           builder: (context, adminViewModel, child) {
@@ -471,12 +476,12 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
               onPressed: adminViewModel.isLoading ? null : _handleCreate,
               child:
                   adminViewModel.isLoading
-                      ? SizedBox(
+                      ? const SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                      : Text('Crear Usuario'),
+                      : const Text('Crear Usuario'),
             );
           },
         ),
@@ -488,11 +493,10 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
 class ChangePasswordDialog extends StatefulWidget {
   final UsuarioModel usuario;
 
-  const ChangePasswordDialog({Key? key, required this.usuario})
-    : super(key: key);
+  const ChangePasswordDialog({super.key, required this.usuario});
 
   @override
-  _ChangePasswordDialogState createState() => _ChangePasswordDialogState();
+  State<ChangePasswordDialog> createState() => _ChangePasswordDialogState();
 }
 
 class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
@@ -525,14 +529,14 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Cambiar Contraseña'),
+      title: const Text('Cambiar Contraseña'),
       content: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Cambiar contraseña para: ${widget.usuario.nombreCompleto}'),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             CustomTextField(
               label: 'Nueva Contraseña',
@@ -548,7 +552,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                 return null;
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             CustomTextField(
               label: 'Confirmar Contraseña',
@@ -570,7 +574,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancelar'),
+          child: const Text('Cancelar'),
         ),
         Consumer<AdminViewModel>(
           builder: (context, adminViewModel, child) {
@@ -579,12 +583,12 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
                   adminViewModel.isLoading ? null : _handleChangePassword,
               child:
                   adminViewModel.isLoading
-                      ? SizedBox(
+                      ? const SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                      : Text('Cambiar'),
+                      : const Text('Cambiar'),
             );
           },
         ),

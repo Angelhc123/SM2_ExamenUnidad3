@@ -5,8 +5,10 @@ import '../../models/historial_modificacion_model.dart';
 import '../../widgets/status_widgets.dart';
 
 class HistorialView extends StatefulWidget {
+  const HistorialView({super.key});
+
   @override
-  _HistorialViewState createState() => _HistorialViewState();
+  State<HistorialView> createState() => _HistorialViewState();
 }
 
 class _HistorialViewState extends State<HistorialView> {
@@ -27,7 +29,7 @@ class _HistorialViewState extends State<HistorialView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Historial de Modificaciones'),
+        title: const Text('Historial de Modificaciones'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -44,15 +46,15 @@ class _HistorialViewState extends State<HistorialView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     adminViewModel.errorMessage!,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: _loadHistorial,
-                    child: Text('Reintentar'),
+                    child: const Text('Reintentar'),
                   ),
                 ],
               ),
@@ -65,7 +67,7 @@ class _HistorialViewState extends State<HistorialView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.history, size: 64, color: Colors.grey[400]),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     'No hay historial disponible',
                     style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -82,7 +84,7 @@ class _HistorialViewState extends State<HistorialView> {
           return RefreshIndicator(
             onRefresh: _loadHistorial,
             child: ListView.builder(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               itemCount: adminViewModel.historial.length,
               itemBuilder: (context, index) {
                 final registro = adminViewModel.historial[index];
@@ -97,10 +99,10 @@ class _HistorialViewState extends State<HistorialView> {
 
   Widget _buildHistorialCard(HistorialModificacionModel registro) {
     return Card(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -115,14 +117,14 @@ class _HistorialViewState extends State<HistorialView> {
                     color: _getColorForAccion(registro.accion),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   registro.fechaFormateada,
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             // Tipo de entidad
             Row(
@@ -135,9 +137,9 @@ class _HistorialViewState extends State<HistorialView> {
                     color: Colors.grey[700],
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10),
@@ -149,13 +151,13 @@ class _HistorialViewState extends State<HistorialView> {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             // Descripción si existe
             if (registro.descripcion != null &&
                 registro.descripcion!.isNotEmpty)
               Padding(
-                padding: EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
                   registro.descripcion!,
                   style: TextStyle(
@@ -170,7 +172,7 @@ class _HistorialViewState extends State<HistorialView> {
             if (registro.cambiosRealizados.isNotEmpty)
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[50],
                   borderRadius: BorderRadius.circular(8),
@@ -187,7 +189,7 @@ class _HistorialViewState extends State<HistorialView> {
                         color: Colors.grey[700],
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       registro.resumenCambios,
                       style: TextStyle(fontSize: 12, color: Colors.grey[800]),
@@ -196,13 +198,13 @@ class _HistorialViewState extends State<HistorialView> {
                 ),
               ),
 
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             // Admin que realizó el cambio
             Row(
               children: [
                 Icon(Icons.person, size: 16, color: Colors.grey[500]),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
                   'Por: ${registro.adminNombre}',
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),

@@ -12,8 +12,10 @@ import '../student_verification_view.dart';
 import '../admin/presencia_dashboard_view.dart';
 
 class UserNfcView extends StatefulWidget {
+  const UserNfcView({super.key});
+
   @override
-  _UserNfcViewState createState() => _UserNfcViewState();
+  State<UserNfcView> createState() => _UserNfcViewState();
 }
 
 class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
@@ -84,15 +86,15 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('NFC No Disponible'),
-        content: Text(
+        title: const Text('NFC No Disponible'),
+        content: const Text(
           'Este dispositivo no tiene NFC disponible o está desactivado. '
           'Por favor active el NFC en la configuración del dispositivo.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Entendido'),
+            child: const Text('Entendido'),
           ),
         ],
       ),
@@ -103,12 +105,12 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Cerrar Sesión'),
-        content: Text('¿Está seguro de que desea cerrar sesión?'),
+        title: const Text('Cerrar Sesión'),
+        content: const Text('¿Está seguro de que desea cerrar sesión?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
@@ -120,10 +122,10 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
               authViewModel.logout();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => LoginView()),
+                MaterialPageRoute(builder: (context) => const LoginView()),
               );
             },
-            child: Text('Cerrar Sesión'),
+            child: const Text('Cerrar Sesión'),
           ),
         ],
       ),
@@ -134,7 +136,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Control de Acceso NFC'),
+        title: const Text('Control de Acceso NFC'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         actions: [
@@ -150,16 +152,16 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                   PopupMenuItem(
                     value: 'profile',
                     child: ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text('Usuario'),
+                      leading: const Icon(Icons.person),
+                      title: const Text('Usuario'),
                       subtitle: Text(
                         authViewModel.currentUser?.nombreCompleto ?? '',
                       ),
                       contentPadding: EdgeInsets.zero,
                     ),
                   ),
-                  PopupMenuDivider(),
-                  PopupMenuItem(
+                  const PopupMenuDivider(),
+                  const PopupMenuItem(
                     value: 'logout',
                     child: ListTile(
                       leading: Icon(Icons.logout, color: Colors.red),
@@ -181,7 +183,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
           builder: (context, nfcViewModel, child) {
             return SafeArea(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
                     // Estado de sesión del guardia
@@ -198,17 +200,17 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                       },
                     ),
 
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
 
                     // Widget de alerta de conflictos
-                    ConflictAlertWidget(),
+                    const ConflictAlertWidget(),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Estado del escaneo
                     _buildScanStatus(nfcViewModel),
 
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
                     // Mensaje de estado del alumno (ENTRADA/SALIDA) - MOVIDO AQUÍ
                     if (nfcViewModel.scannedAlumno != null &&
@@ -216,17 +218,17 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                         nfcViewModel.successMessage!.contains('registrada'))
                       _buildStudentStatusMessage(nfcViewModel),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     // Botones de acción
                     _buildActionButtons(nfcViewModel),
 
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
                     // Sección de logs en tiempo real
                     _buildDebugLogsSection(nfcViewModel),
 
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
                     // Instrucciones
                     _buildInstructions(),
@@ -251,7 +253,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
     if (nfcViewModel.errorMessage != null) {
       return Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.red[50],
           borderRadius: BorderRadius.circular(12),
@@ -260,7 +262,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
         child: Column(
           children: [
             Icon(Icons.error_outline, color: Colors.red[600], size: 48),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               nfcViewModel.errorMessage!,
               style: TextStyle(
@@ -277,7 +279,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
     if (nfcViewModel.successMessage != null) {
       return Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.green[50],
           borderRadius: BorderRadius.circular(12),
@@ -290,7 +292,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
               color: Colors.green[600],
               size: 48,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               nfcViewModel.successMessage!,
               style: TextStyle(
@@ -306,7 +308,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
     }
 
     return Container(
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.blue[50],
         borderRadius: BorderRadius.circular(12),
@@ -315,7 +317,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
       child: Column(
         children: [
           Icon(Icons.nfc, color: Colors.blue[600], size: 64),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             'Listo para escanear',
             style: TextStyle(
@@ -324,7 +326,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Presione el botón para iniciar el escaneo NFC',
             style: TextStyle(color: Colors.blue[600], fontSize: 14),
@@ -360,7 +362,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
             nfcViewModel.errorMessage!.contains(
               'Requiere autorización manual',
             )) ...[
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           CustomButton(
             text: 'Verificación Manual',
             icon: Icons.person_search,
@@ -372,7 +374,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
         // Botón de Dashboard de Presencia
         if (nfcViewModel.guardiaId != null) ...[
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           CustomButton(
             text: 'Control de Presencia',
             icon: Icons.dashboard,
@@ -384,7 +386,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
         if (nfcViewModel.scannedAlumno != null ||
             nfcViewModel.errorMessage != null) ...[
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           CustomButton(
             text: 'Limpiar',
             icon: Icons.clear,
@@ -399,7 +401,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
   Widget _buildInstructions() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: BorderRadius.circular(8),
@@ -411,7 +413,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
           Row(
             children: [
               Icon(Icons.info_outline, color: Colors.blue[600], size: 20),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 'Instrucciones',
                 style: TextStyle(
@@ -421,7 +423,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             '1. Presione "Escanear Pulsera" para activar NFC\n'
             '2. Acerque la pulsera del estudiante al dispositivo\n'
@@ -440,13 +442,16 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
   // Métodos para las nuevas funcionalidades US022-US030
   void _mostrarVerificacionManual(NfcViewModel nfcViewModel) async {
-    if (nfcViewModel.scannedAlumno == null || nfcViewModel.guardiaId == null)
+    if (nfcViewModel.scannedAlumno == null || nfcViewModel.guardiaId == null) {
       return;
+    }
 
     // Determinar tipo de acceso primero
     final tipoAcceso = await nfcViewModel.determinarTipoAccesoInteligente(
       nfcViewModel.scannedAlumno!.dni,
     );
+
+    if (!mounted) return;
 
     final resultado = await Navigator.push<bool>(
       context,
@@ -465,7 +470,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
     );
 
     // Si se regresó de la verificación, limpiar el scan
-    if (resultado == true) {
+    if (mounted && resultado == true) {
       nfcViewModel.clearScan();
     }
   }
@@ -514,8 +519,8 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
@@ -525,7 +530,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
             color: Colors.black.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -536,7 +541,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(iconData, color: textColor, size: 28),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 tipoAcceso,
                 style: TextStyle(
@@ -548,11 +553,11 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
             ],
           ),
 
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
 
           // Datos principales del alumno
           Container(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -585,12 +590,12 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
   Widget _buildStatusInfoRow(String label, String value, IconData icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: 16, color: Colors.grey[600]),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           SizedBox(
             width: 80,
             child: Text(
@@ -625,7 +630,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
   Widget _buildDebugLogsSection(NfcViewModel nfcViewModel) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(12),
@@ -637,10 +642,10 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
           // Cabecera del panel de logs
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: Colors.grey[800],
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(11),
                 topRight: Radius.circular(11),
               ),
@@ -648,7 +653,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
             child: Row(
               children: [
                 Icon(Icons.bug_report, color: Colors.green[400], size: 20),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   'LOGS DE DEBUGGING',
                   style: TextStyle(
@@ -658,16 +663,16 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                     fontFamily: 'monospace',
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () => nfcViewModel.clearLogs(),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.red[700],
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text(
+                    child: const Text(
                       'LIMPIAR',
                       style: TextStyle(
                         color: Colors.white,
@@ -684,7 +689,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
           // Contenido de los logs
           Container(
             height: 200,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: nfcViewModel.debugLogs.isEmpty
                 ? Center(
                     child: Text(
@@ -717,7 +722,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                       }
 
                       return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 1),
+                        padding: const EdgeInsets.symmetric(vertical: 1),
                         child: Text(
                           log,
                           style: TextStyle(
@@ -744,21 +749,21 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Row(
+          title: const Row(
             children: [
               Icon(Icons.warning, color: Colors.orange),
               SizedBox(width: 8),
               Text('Detener Escáner'),
             ],
           ),
-          content: Text(
+          content: const Text(
             '¿Está seguro de que desea detener el escáner NFC?\n\n'
             'Se interrumpirá la lectura continua de pulseras.',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancelar'),
+              child: const Text('Cancelar'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -769,7 +774,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
               ),
-              child: Text('Detener'),
+              child: const Text('Detener'),
             ),
           ],
         );

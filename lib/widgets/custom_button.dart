@@ -12,7 +12,7 @@ class CustomButton extends StatelessWidget {
   final EdgeInsets? padding;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
@@ -22,11 +22,11 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       height: height ?? 50,
       child: ElevatedButton(
@@ -35,7 +35,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
           foregroundColor: textColor ?? Colors.white,
           padding:
-              padding ?? EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 2,
         ),
@@ -57,11 +57,11 @@ class CustomButton extends StatelessWidget {
                   children: [
                     if (icon != null) ...[
                       Icon(icon, size: 18),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                     ],
                     Text(
                       text,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),

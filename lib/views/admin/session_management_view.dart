@@ -10,10 +10,10 @@ class SessionManagementView extends StatefulWidget {
   final String adminName;
 
   const SessionManagementView({
-    Key? key,
+    super.key,
     required this.adminId,
     required this.adminName,
-  }) : super(key: key);
+  });
 
   @override
   State<SessionManagementView> createState() => _SessionManagementViewState();
@@ -59,7 +59,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Confirmar Finalización'),
+            title: const Text('Confirmar Finalización'),
             content: Text(
               '¿Está seguro de que desea finalizar la sesión de $guardiaNombre?\n\n'
               'Esta acción cerrará todas las sesiones activas del guardia.',
@@ -67,7 +67,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: Text('Cancelar'),
+                child: const Text('Cancelar'),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
@@ -75,7 +75,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                 ),
-                child: Text('Finalizar'),
+                child: const Text('Finalizar'),
               ),
             ],
           ),
@@ -89,12 +89,14 @@ class _SessionManagementViewState extends State<SessionManagementView> {
         );
 
         if (success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Sesión finalizada exitosamente'),
-              backgroundColor: Colors.green,
-            ),
-          );
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Sesión finalizada exitosamente'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
           unawaited(_cargarSesionesActivas());
         } else {
           _mostrarError('Error al finalizar la sesión');
@@ -115,13 +117,13 @@ class _SessionManagementViewState extends State<SessionManagementView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gestión de Sesiones'),
+        title: const Text('Gestión de Sesiones'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: _cargarSesionesActivas,
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             tooltip: 'Actualizar',
           ),
         ],
@@ -139,8 +141,8 @@ class _SessionManagementViewState extends State<SessionManagementView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
             Text(
               'Cargando sesiones activas...',
               style: GoogleFonts.lato(fontSize: 16),
@@ -155,8 +157,8 @@ class _SessionManagementViewState extends State<SessionManagementView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error, size: 64, color: Colors.red),
-            SizedBox(height: 16),
+            const Icon(Icons.error, size: 64, color: Colors.red),
+            const SizedBox(height: 16),
             Text(
               'Error al cargar sesiones',
               style: GoogleFonts.lato(
@@ -164,16 +166,16 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               _errorMessage!,
               style: GoogleFonts.lato(color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _cargarSesionesActivas,
-              child: Text('Reintentar'),
+              child: const Text('Reintentar'),
             ),
           ],
         ),
@@ -186,7 +188,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.security, size: 64, color: Colors.grey[400]),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'No hay sesiones activas',
               style: GoogleFonts.lato(
@@ -195,7 +197,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                 color: Colors.grey[600],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Todos los guardias están desconectados',
               style: GoogleFonts.lato(color: Colors.grey[500]),
@@ -206,10 +208,10 @@ class _SessionManagementViewState extends State<SessionManagementView> {
     }
 
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       children: [
         _buildResumenGeneral(),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         Text(
           'Sesiones Activas (${_sesionesActivas.length})',
           style: GoogleFonts.lato(
@@ -218,7 +220,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
             color: Colors.grey[800],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         ..._sesionesActivas.map((sesion) => _buildSesionCard(sesion)),
       ],
     );
@@ -235,7 +237,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
 
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -246,7 +248,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -257,7 +259,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                     Colors.blue,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: _buildStatCard(
                     'Puntos Activos',
@@ -269,7 +271,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
               ],
             ),
             if (puntoMap.isNotEmpty) ...[
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 'Distribución por Punto de Control:',
                 style: GoogleFonts.lato(
@@ -277,16 +279,16 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               ...puntoMap.entries.map(
                 (entry) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2),
+                  padding: const EdgeInsets.symmetric(vertical: 2),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(entry.key, style: GoogleFonts.lato()),
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 8,
                           vertical: 4,
                         ),
@@ -320,7 +322,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
     Color color,
   ) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
@@ -329,7 +331,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
       child: Column(
         children: [
           Icon(icon, color: color, size: 32),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             value,
             style: GoogleFonts.lato(
@@ -363,9 +365,9 @@ class _SessionManagementViewState extends State<SessionManagementView> {
     final isRecentActivity = tiempoUltimaActividad.inMinutes < 2;
 
     return Card(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -382,7 +384,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                             : Colors.orange[700],
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -405,7 +407,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color:
                         isRecentActivity
@@ -427,7 +429,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             _buildDetalleSesion(
               'Punto de Control',
               puntoControl,
@@ -443,21 +445,21 @@ class _SessionManagementViewState extends State<SessionManagementView> {
               _formatearTiempo(tiempoUltimaActividad),
               Icons.update,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton.icon(
                   onPressed: () => _mostrarDetallesSesion(sesion),
-                  icon: Icon(Icons.info_outline),
-                  label: Text('Detalles'),
+                  icon: const Icon(Icons.info_outline),
+                  label: const Text('Detalles'),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed:
                       () => _forzarFinalizacion(guardiaId, guardiaNombre),
-                  icon: Icon(Icons.stop),
-                  label: Text('Finalizar'),
+                  icon: const Icon(Icons.stop),
+                  label: const Text('Finalizar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,
@@ -473,11 +475,11 @@ class _SessionManagementViewState extends State<SessionManagementView> {
 
   Widget _buildDetalleSesion(String label, String valor, IconData icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           Icon(icon, size: 16, color: Colors.grey[600]),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             '$label: ',
             style: GoogleFonts.lato(fontSize: 14, color: Colors.grey[600]),
@@ -496,7 +498,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Detalles de Sesión'),
+            title: const Text('Detalles de Sesión'),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -527,7 +529,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
                     sesion['last_activity'] ?? 'N/A',
                   ),
                   if (sesion['device_info'] != null) ...[
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       'Información del Dispositivo:',
                       style: GoogleFonts.lato(fontWeight: FontWeight.bold),
@@ -551,7 +553,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('Cerrar'),
+                child: const Text('Cerrar'),
               ),
             ],
           ),
@@ -560,7 +562,7 @@ class _SessionManagementViewState extends State<SessionManagementView> {
 
   Widget _buildDetalleCompleto(String label, String valor) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

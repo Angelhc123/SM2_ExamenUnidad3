@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import '../services/session_guard_service.dart';
 
 class ConflictAlertWidget extends StatefulWidget {
+  const ConflictAlertWidget({super.key});
+
   @override
-  _ConflictAlertWidgetState createState() => _ConflictAlertWidgetState();
+  State<ConflictAlertWidget> createState() => _ConflictAlertWidgetState();
 }
 
 class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
@@ -49,7 +51,7 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
     return Consumer<SessionGuardService>(
       builder: (context, sessionService, child) {
         if (!sessionService.hasConflict) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return AnimatedBuilder(
@@ -60,8 +62,8 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
               child: GestureDetector(
                 onTap: () => _showConflictDialog(context, sessionService),
                 child: Container(
-                  margin: EdgeInsets.all(8),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
                     color: _colorAnimation.value,
                     borderRadius: BorderRadius.circular(25),
@@ -70,11 +72,11 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                         color: Colors.red.withOpacity(0.4),
                         spreadRadius: 2,
                         blurRadius: 8,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
@@ -122,12 +124,12 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
             ),
             title: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.warning_amber_rounded,
                   color: Colors.orange,
                   size: 28,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     'Conflicto de Sesión',
@@ -144,7 +146,7 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.red[50],
                     borderRadius: BorderRadius.circular(8),
@@ -153,11 +155,11 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Otro guardia está activo en este punto:',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         '📍 Punto: ${conflictData?['active_guard']?['punto_control'] ?? 'Desconocido'}',
                       ),
@@ -172,8 +174,8 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   '¿Qué desea hacer?',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -195,8 +197,8 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                   Navigator.pop(context);
                   _handleTakeControl(context, sessionService);
                 },
-                icon: Icon(Icons.swap_horiz, size: 18),
-                label: Text('Tomar Control'),
+                icon: const Icon(Icons.swap_horiz, size: 18),
+                label: const Text('Tomar Control'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   foregroundColor: Colors.white,
@@ -215,21 +217,21 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Row(
+            title: const Row(
               children: [
                 Icon(Icons.security, color: Colors.orange),
                 SizedBox(width: 8),
                 Text('Confirmar Acción'),
               ],
             ),
-            content: Text(
+            content: const Text(
               '¿Está seguro de que desea tomar control de este punto? '
               'Esto finalizará la sesión del otro guardia.',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancelar'),
+                child: const Text('Cancelar'),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -238,7 +240,7 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
 
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('✅ Sesión tomada exitosamente'),
                         backgroundColor: Colors.green,
                       ),
@@ -249,7 +251,7 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                 ),
-                child: Text('Tomar Control'),
+                child: const Text('Tomar Control'),
               ),
             ],
           ),
@@ -268,9 +270,11 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
 
 /// Widget flotante que se puede usar en cualquier pantalla
 class FloatingConflictAlert extends StatelessWidget {
+  const FloatingConflictAlert({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    return const Positioned(
       top: kToolbarHeight + 20,
       left: 16,
       right: 16,
@@ -281,12 +285,14 @@ class FloatingConflictAlert extends StatelessWidget {
 
 /// Widget para mostrar en AppBar
 class AppBarConflictIndicator extends StatelessWidget {
+  const AppBarConflictIndicator({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SessionGuardService>(
       builder: (context, sessionService, child) {
         if (!sessionService.hasConflict) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return IconButton(
@@ -295,12 +301,12 @@ class AppBarConflictIndicator extends StatelessWidget {
             _showConflictBottomSheet(context, sessionService);
           },
           icon: Container(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(Icons.warning, color: Colors.white, size: 20),
+            child: const Icon(Icons.warning, color: Colors.white, size: 20),
           ),
           tooltip: 'Conflicto de sesión detectado',
         );
@@ -315,7 +321,7 @@ class AppBarConflictIndicator extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder:
@@ -326,7 +332,7 @@ class AppBarConflictIndicator extends StatelessWidget {
             expand: false,
             builder: (context, scrollController) {
               return Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     Container(
@@ -337,8 +343,8 @@ class AppBarConflictIndicator extends StatelessWidget {
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
-                    SizedBox(height: 16),
-                    Row(
+                    const SizedBox(height: 16),
+                    const Row(
                       children: [
                         Icon(
                           Icons.warning_amber,
@@ -355,13 +361,13 @@ class AppBarConflictIndicator extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: ListView(
                         controller: scrollController,
                         children: [
                           _buildConflictDetailCard(sessionService),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           _buildActionButtons(context, sessionService),
                         ],
                       ),
@@ -379,15 +385,15 @@ class AppBarConflictIndicator extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Detalles del Conflicto',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             _buildDetailRow(
               'Punto de Control',
               conflictData?['active_guard']?['punto_control'] ?? '-',
@@ -416,7 +422,7 @@ class AppBarConflictIndicator extends StatelessWidget {
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -424,7 +430,7 @@ class AppBarConflictIndicator extends StatelessWidget {
             width: 120,
             child: Text(
               '$label:',
-              style: TextStyle(fontWeight: FontWeight.w500),
+              style: const TextStyle(fontWeight: FontWeight.w500),
             ),
           ),
           Expanded(child: Text(value)),
@@ -446,16 +452,16 @@ class AppBarConflictIndicator extends StatelessWidget {
               Navigator.pop(context);
               sessionService.forceSessionTakeover();
             },
-            icon: Icon(Icons.swap_horiz),
-            label: Text('Tomar Control del Punto'),
+            icon: const Icon(Icons.swap_horiz),
+            label: const Text('Tomar Control del Punto'),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.orange,
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12),
             ),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
@@ -463,8 +469,8 @@ class AppBarConflictIndicator extends StatelessWidget {
               Navigator.pop(context);
               sessionService.cancelSession();
             },
-            icon: Icon(Icons.cancel),
-            label: Text('Cancelar mi Sesión'),
+            icon: const Icon(Icons.cancel),
+            label: const Text('Cancelar mi Sesión'),
           ),
         ),
       ],

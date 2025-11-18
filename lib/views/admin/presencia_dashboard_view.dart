@@ -9,10 +9,10 @@ class PresenciaDashboardView extends StatefulWidget {
   final String guardiaNombre;
 
   const PresenciaDashboardView({
-    Key? key,
+    super.key,
     required this.guardiaId,
     required this.guardiaNombre,
-  }) : super(key: key);
+  });
 
   @override
   State<PresenciaDashboardView> createState() => _PresenciaDashboardViewState();
@@ -47,9 +47,11 @@ class _PresenciaDashboardViewState extends State<PresenciaDashboardView>
         _autorizacionService.cargarHistorialDecisiones(widget.guardiaId),
       ]);
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error al cargar datos: $e')));
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error al cargar datos: $e')));
+      }
     } finally {
       setState(() => _isLoading = false);
     }

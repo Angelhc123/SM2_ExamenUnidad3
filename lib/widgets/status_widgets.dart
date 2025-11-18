@@ -4,7 +4,7 @@ class LoadingWidget extends StatelessWidget {
   final String? message;
   final double? size;
 
-  const LoadingWidget({Key? key, this.message, this.size}) : super(key: key);
+  const LoadingWidget({super.key, this.message, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class LoadingWidget extends StatelessWidget {
             ),
           ),
           if (message != null) ...[
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               message!,
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -41,27 +41,26 @@ class ErrorWidget extends StatelessWidget {
   final VoidCallback? onRetry;
   final IconData? icon;
 
-  const ErrorWidget({Key? key, required this.message, this.onRetry, this.icon})
-    : super(key: key);
+  const ErrorWidget({super.key, required this.message, this.onRetry, this.icon});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon ?? Icons.error_outline, size: 64, color: Colors.red[300]),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               message,
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
-              SizedBox(height: 16),
-              ElevatedButton(onPressed: onRetry, child: Text('Reintentar')),
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: onRetry, child: const Text('Reintentar')),
             ],
           ],
         ),
@@ -77,18 +76,18 @@ class SuccessWidget extends StatelessWidget {
   final String? continueText;
 
   const SuccessWidget({
-    Key? key,
+    super.key,
     required this.message,
     this.icon,
     this.onContinue,
     this.continueText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -97,7 +96,7 @@ class SuccessWidget extends StatelessWidget {
               size: 64,
               color: Colors.green[400],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               message,
               style: TextStyle(
@@ -108,7 +107,7 @@ class SuccessWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (onContinue != null) ...[
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: onContinue,
                 child: Text(continueText ?? 'Continuar'),

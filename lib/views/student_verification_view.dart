@@ -13,14 +13,14 @@ class StudentVerificationView extends StatefulWidget {
   final Function(DecisionManualModel) onDecisionTaken;
 
   const StudentVerificationView({
-    Key? key,
+    super.key,
     required this.estudiante,
     required this.guardiaId,
     required this.guardiaNombre,
     required this.puntoControl,
     required this.tipoAcceso,
     required this.onDecisionTaken,
-  }) : super(key: key);
+  });
 
   @override
   State<StudentVerificationView> createState() =>

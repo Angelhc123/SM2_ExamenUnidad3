@@ -12,17 +12,19 @@ import 'historial_view.dart';
 import 'sync_config_view.dart';
 
 class AdminView extends StatefulWidget {
+  const AdminView({super.key});
+
   @override
-  _AdminViewState createState() => _AdminViewState();
+  State<AdminView> createState() => _AdminViewState();
 }
 
 class _AdminViewState extends State<AdminView> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    AdminDashboard(),
-    UserManagementView(),
-    ReportsView(),
+    const AdminDashboard(),
+    const UserManagementView(),
+    const ReportsView(),
   ];
 
   void _handleLogout() {
@@ -30,12 +32,12 @@ class _AdminViewState extends State<AdminView> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Cerrar Sesión'),
-            content: Text('¿Está seguro de que desea cerrar sesión?'),
+            title: const Text('Cerrar Sesión'),
+            content: const Text('¿Está seguro de que desea cerrar sesión?'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancelar'),
+                child: const Text('Cancelar'),
               ),
               TextButton(
                 onPressed: () {
@@ -47,10 +49,10 @@ class _AdminViewState extends State<AdminView> {
                   authViewModel.logout();
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginView()),
+                    MaterialPageRoute(builder: (context) => const LoginView()),
                   );
                 },
-                child: Text('Cerrar Sesión'),
+                child: const Text('Cerrar Sesión'),
               ),
             ],
           ),
@@ -61,7 +63,7 @@ class _AdminViewState extends State<AdminView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Panel de Administración'),
+        title: const Text('Panel de Administración'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         actions: [
@@ -78,16 +80,16 @@ class _AdminViewState extends State<AdminView> {
                       PopupMenuItem(
                         value: 'profile',
                         child: ListTile(
-                          leading: Icon(Icons.admin_panel_settings),
-                          title: Text('Administrador'),
+                          leading: const Icon(Icons.admin_panel_settings),
+                          title: const Text('Administrador'),
                           subtitle: Text(
                             authViewModel.currentUser?.nombreCompleto ?? '',
                           ),
                           contentPadding: EdgeInsets.zero,
                         ),
                       ),
-                      PopupMenuDivider(),
-                      PopupMenuItem(
+                      const PopupMenuDivider(),
+                      const PopupMenuItem(
                         value: 'logout',
                         child: ListTile(
                           leading: Icon(Icons.logout, color: Colors.red),
@@ -110,7 +112,7 @@ class _AdminViewState extends State<AdminView> {
         onTap: (index) => setState(() => _selectedIndex = index),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Theme.of(context).primaryColor,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Dashboard',
@@ -127,8 +129,10 @@ class _AdminViewState extends State<AdminView> {
 }
 
 class AdminDashboard extends StatefulWidget {
+  const AdminDashboard({super.key});
+
   @override
-  _AdminDashboardState createState() => _AdminDashboardState();
+  State<AdminDashboard> createState() => _AdminDashboardState();
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
@@ -153,12 +157,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return RefreshIndicator(
       onRefresh: _loadDashboardData,
       child: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.all(16),
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(16),
         child: Consumer<ReportsViewModel>(
           builder: (context, reportsViewModel, child) {
             if (reportsViewModel.isLoading) {
-              return Center(
+              return const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -176,15 +180,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
                       reportsViewModel.errorMessage!,
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: _loadDashboardData,
-                      child: Text('Reintentar'),
+                      child: const Text('Reintentar'),
                     ),
                   ],
                 ),
@@ -196,11 +200,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
               children: [
                 // Estadísticas principales
                 _buildStatsSection(reportsViewModel),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 // Resumen de datos
                 _buildDataSummary(reportsViewModel),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 // Acciones rápidas
                 _buildQuickActions(),
@@ -224,7 +228,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             color: Colors.grey[800],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
@@ -235,7 +239,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 Colors.blue,
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: _buildStatCard(
                 'Esta Semana',
@@ -257,7 +261,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
     Color color,
   ) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
@@ -280,7 +284,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             title,
             style: TextStyle(
@@ -306,10 +310,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
             color: Colors.grey[800],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -319,7 +323,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 color: Colors.grey.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 4,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
@@ -330,19 +334,19 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 '${reportsViewModel.alumnos.length}',
                 Icons.school,
               ),
-              Divider(),
+              const Divider(),
               _buildSummaryRow(
                 'Total Asistencias',
                 '${reportsViewModel.asistencias.length}',
                 Icons.assignment_turned_in,
               ),
-              Divider(),
+              const Divider(),
               _buildSummaryRow(
                 'Facultades',
                 '${reportsViewModel.facultades.length}',
                 Icons.business,
               ),
-              Divider(),
+              const Divider(),
               _buildSummaryRow(
                 'Escuelas',
                 '${reportsViewModel.escuelas.length}',
@@ -357,11 +361,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   Widget _buildSummaryRow(String label, String value, IconData icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
           Icon(icon, color: Colors.grey[600], size: 20),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               label,
@@ -393,7 +397,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             color: Colors.grey[800],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
@@ -410,7 +414,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 },
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: CustomButton(
                 text: 'Ver Reportes',
@@ -428,7 +432,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           children: [
             Expanded(
@@ -440,13 +444,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SessionConfigView(),
+                      builder: (context) => const SessionConfigView(),
                     ),
                   );
                 },
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: CustomButton(
                 text: 'Sincronización',
@@ -455,14 +459,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SyncConfigView()),
+                    MaterialPageRoute(builder: (context) => const SyncConfigView()),
                   );
                 },
               ),
             ),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           children: [
             Expanded(
@@ -490,7 +494,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 },
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: CustomButton(
                 text: 'Ver Historial',
@@ -499,12 +503,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HistorialView()),
+                    MaterialPageRoute(builder: (context) => const HistorialView()),
                   );
                 },
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: Container(), // Espacio vacío para simetría
             ),

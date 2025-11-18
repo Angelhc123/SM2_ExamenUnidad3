@@ -5,8 +5,10 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_field.dart';
 
 class SessionConfigView extends StatefulWidget {
+  const SessionConfigView({super.key});
+
   @override
-  _SessionConfigViewState createState() => _SessionConfigViewState();
+  State<SessionConfigView> createState() => _SessionConfigViewState();
 }
 
 class _SessionConfigViewState extends State<SessionConfigView> {
@@ -50,7 +52,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
 
     if (success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('✅ Configuración de sesión actualizada'),
           backgroundColor: Colors.green,
         ),
@@ -58,7 +60,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
       Navigator.pop(context);
     } else if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('❌ Error al guardar configuración'),
           backgroundColor: Colors.red,
         ),
@@ -70,14 +72,14 @@ class _SessionConfigViewState extends State<SessionConfigView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Configuración de Sesión'),
+        title: const Text('Configuración de Sesión'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
       ),
       body: Consumer<AuthViewModel>(
         builder: (context, authViewModel, child) {
           if (!authViewModel.isAdmin) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -94,7 +96,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
           }
 
           return SingleChildScrollView(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Form(
               key: _formKey,
               child: Column(
@@ -103,11 +105,11 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                   // Información actual
                   Card(
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             children: [
                               Icon(Icons.info_outline, color: Colors.blue),
                               SizedBox(width: 8),
@@ -120,7 +122,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           Text(
                             'Tiempo de sesión: ${authViewModel.sessionService.sessionTimeoutMinutes} minutos',
                           ),
@@ -128,7 +130,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                             'Advertencia previa: ${authViewModel.sessionService.warningTimeMinutes} minutos',
                           ),
                           if (authViewModel.sessionService.hasActiveSession)
-                            Text(
+                            const Text(
                               '🟢 Sesión activa',
                               style: TextStyle(
                                 color: Colors.green,
@@ -136,7 +138,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                               ),
                             )
                           else
-                            Text(
+                            const Text(
                               '🔴 Sin sesión activa',
                               style: TextStyle(
                                 color: Colors.red,
@@ -147,14 +149,14 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
                   // Formulario de configuración
-                  Text(
+                  const Text(
                     'Nueva Configuración',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   CustomTextField(
                     label: 'Tiempo de sesión (minutos)',
@@ -173,7 +175,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   CustomTextField(
                     label: 'Advertencia previa (minutos)',
@@ -202,20 +204,20 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
                   // Información de ayuda
                   Card(
                     color: Colors.blue[50],
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.help_outline, color: Colors.blue),
-                              SizedBox(width: 8),
+                              const Icon(Icons.help_outline, color: Colors.blue),
+                              const SizedBox(width: 8),
                               Text(
                                 'Información',
                                 style: TextStyle(
@@ -225,24 +227,24 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
-                          Text(
+                          const SizedBox(height: 8),
+                          const Text(
                             '• El tiempo de sesión define cuándo se cierra automáticamente',
                           ),
-                          Text(
+                          const Text(
                             '• La advertencia previa notifica al usuario antes del cierre',
                           ),
-                          Text(
+                          const Text(
                             '• Valores recomendados: 30 min sesión, 5 min advertencia',
                           ),
-                          Text(
+                          const Text(
                             '• La configuración se aplica a todas las nuevas sesiones',
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
 
                   // Botones de acción
                   Row(
@@ -251,7 +253,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
                           style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 15),
+                            padding: const EdgeInsets.symmetric(vertical: 15),
                             side: BorderSide(
                               color: Theme.of(context).primaryColor,
                             ),
@@ -268,7 +270,7 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: CustomButton(
                           text: 'Guardar',

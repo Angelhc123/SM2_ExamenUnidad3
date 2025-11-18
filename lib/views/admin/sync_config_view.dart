@@ -4,8 +4,10 @@ import '../../services/sync_service.dart';
 import '../../widgets/custom_button.dart';
 
 class SyncConfigView extends StatefulWidget {
+  const SyncConfigView({super.key});
+
   @override
-  _SyncConfigViewState createState() => _SyncConfigViewState();
+  State<SyncConfigView> createState() => _SyncConfigViewState();
 }
 
 class _SyncConfigViewState extends State<SyncConfigView> {
@@ -22,17 +24,20 @@ class _SyncConfigViewState extends State<SyncConfigView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sincronización de Datos'),
+        title: const Text('Sincronización de Datos'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: () async {
+              final messenger = ScaffoldMessenger.of(context);
               await SyncService().performSync();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Sincronización manual iniciada')),
-              );
+              if (mounted) {
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Sincronización manual iniciada')),
+                );
+              }
             },
           ),
         ],
@@ -42,21 +47,21 @@ class _SyncConfigViewState extends State<SyncConfigView> {
         child: Consumer<SyncService>(
           builder: (context, syncService, child) {
             return SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Estado actual
                   _buildStatusCard(syncService),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Configuración
                   _buildConfigCard(syncService),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Acciones rápidas
                   _buildQuickActions(syncService),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   // Log de sincronización
                   _buildSyncLog(syncService),
@@ -72,7 +77,7 @@ class _SyncConfigViewState extends State<SyncConfigView> {
   Widget _buildStatusCard(SyncService syncService) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -91,14 +96,14 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                           ? Colors.green
                           : Colors.red,
                 ),
-                SizedBox(width: 8),
-                Text(
+                const SizedBox(width: 8),
+                const Text(
                   'Estado de Sincronización',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
             _buildStatusRow(
               'Estado actual',
@@ -129,8 +134,8 @@ class _SyncConfigViewState extends State<SyncConfigView> {
             if (syncService.syncError != null)
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.only(top: 8),
-                padding: EdgeInsets.all(8),
+                margin: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.red[50],
                   border: Border.all(color: Colors.red[200]!),
@@ -139,7 +144,7 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                 child: Row(
                   children: [
                     Icon(Icons.error_outline, color: Colors.red[600], size: 16),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         'Error: ${syncService.syncError}',
@@ -158,31 +163,31 @@ class _SyncConfigViewState extends State<SyncConfigView> {
   Widget _buildConfigCard(SyncService syncService) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Configuración',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
             // Toggle sincronización automática
             SwitchListTile(
-              title: Text('Sincronización automática'),
-              subtitle: Text('Sincronizar datos automáticamente'),
+              title: const Text('Sincronización automática'),
+              subtitle: const Text('Sincronizar datos automáticamente'),
               value: syncService.autoSyncEnabled,
               onChanged: (value) {
                 syncService.toggleAutoSync(value);
               },
             ),
 
-            Divider(),
+            const Divider(),
 
             // Intervalo de sincronización
             ListTile(
-              title: Text('Intervalo de sincronización'),
+              title: const Text('Intervalo de sincronización'),
               subtitle: Text('${syncService.syncIntervalMinutes} minutos'),
               trailing: PopupMenuButton<int>(
                 onSelected: (minutes) {
@@ -190,13 +195,13 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                 },
                 itemBuilder:
                     (context) => [
-                      PopupMenuItem(value: 15, child: Text('15 minutos')),
-                      PopupMenuItem(value: 30, child: Text('30 minutos')),
-                      PopupMenuItem(value: 60, child: Text('1 hora')),
-                      PopupMenuItem(value: 120, child: Text('2 horas')),
-                      PopupMenuItem(value: 240, child: Text('4 horas')),
+                      const PopupMenuItem(value: 15, child: Text('15 minutos')),
+                      const PopupMenuItem(value: 30, child: Text('30 minutos')),
+                      const PopupMenuItem(value: 60, child: Text('1 hora')),
+                      const PopupMenuItem(value: 120, child: Text('2 horas')),
+                      const PopupMenuItem(value: 240, child: Text('4 horas')),
                     ],
-                child: Icon(Icons.more_vert),
+                child: const Icon(Icons.more_vert),
               ),
             ),
           ],
@@ -208,15 +213,15 @@ class _SyncConfigViewState extends State<SyncConfigView> {
   Widget _buildQuickActions(SyncService syncService) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Acciones Rápidas',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
             Row(
               children: [
@@ -230,21 +235,23 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                             ? null
                             : () async {
                               final bool success = await syncService.performSync();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    success
-                                        ? '✅ Sincronización completada'
-                                        : '❌ Error en la sincronización',
+                              if (mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      success
+                                          ? '✅ Sincronización completada'
+                                          : '❌ Error en la sincronización',
+                                    ),
+                                    backgroundColor:
+                                        success ? Colors.green : Colors.red,
                                   ),
-                                  backgroundColor:
-                                      success ? Colors.green : Colors.red,
-                                ),
-                              );
+                                );
+                              }
                             },
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: CustomButton(
                     text: 'Limpiar Log',
@@ -253,7 +260,7 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                     onPressed: () {
                       syncService.clearSyncLog();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('Log de sincronización limpiado'),
                         ),
                       );
@@ -271,11 +278,11 @@ class _SyncConfigViewState extends State<SyncConfigView> {
   Widget _buildSyncLog(SyncService syncService) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
                 Icon(Icons.list_alt, size: 20),
                 SizedBox(width: 8),
@@ -285,7 +292,7 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
             Container(
               height: 200,
@@ -303,11 +310,11 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                         ),
                       )
                       : ListView.builder(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         itemCount: syncService.syncLog.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2),
+                            padding: const EdgeInsets.symmetric(vertical: 2),
                             child: Text(
                               syncService.syncLog[index],
                               style: TextStyle(
@@ -328,7 +335,7 @@ class _SyncConfigViewState extends State<SyncConfigView> {
 
   Widget _buildStatusRow(String label, String value, Color color) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

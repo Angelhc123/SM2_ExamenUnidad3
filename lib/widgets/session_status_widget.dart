@@ -9,11 +9,11 @@ class SessionStatusWidget extends StatefulWidget {
   final String? puntoControl;
 
   const SessionStatusWidget({
-    Key? key,
+    super.key,
     this.guardiaId,
     this.guardiaNombre,
     this.puntoControl,
-  }) : super(key: key);
+  });
 
   @override
   State<SessionStatusWidget> createState() => _SessionStatusWidgetState();
@@ -144,7 +144,7 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
               ),
             ),
             if (widget.guardiaId != null)
-              TextButton(onPressed: _iniciarSesion, child: Text('Reintentar')),
+              TextButton(onPressed: _iniciarSesion, child: const Text('Reintentar')),
           ],
         ),
       );
@@ -271,7 +271,7 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
             children: [
               TextButton(
                 onPressed: () => sessionService.verificarEstadoSesion(),
-                child: Text('Verificar'),
+                child: const Text('Verificar'),
               ),
               const SizedBox(width: 8),
               ElevatedButton(
@@ -280,7 +280,7 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                 ),
-                child: Text('Tomar Control'),
+                child: const Text('Tomar Control'),
               ),
             ],
           ),
@@ -294,7 +294,7 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text('Detalles de Sesión'),
+            title: const Text('Detalles de Sesión'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -320,7 +320,7 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('Cerrar'),
+                child: const Text('Cerrar'),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -334,7 +334,7 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                 ),
-                child: Text('Finalizar Sesión'),
+                child: const Text('Finalizar Sesión'),
               ),
             ],
           ),
@@ -381,19 +381,19 @@ class ConflictResolutionDialog extends StatelessWidget {
   final VoidCallback onCancel;
 
   const ConflictResolutionDialog({
-    Key? key,
+    super.key,
     required this.conflictData,
     required this.onResolve,
     required this.onCancel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Row(
+      title: const Row(
         children: [
           Icon(Icons.warning, color: Colors.orange),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Text('Conflicto Detectado'),
         ],
       ),
@@ -439,14 +439,14 @@ class ConflictResolutionDialog extends StatelessWidget {
         ],
       ),
       actions: [
-        TextButton(onPressed: onCancel, child: Text('Cancelar')),
+        TextButton(onPressed: onCancel, child: const Text('Cancelar')),
         ElevatedButton(
           onPressed: () => onResolve(true),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.orange,
             foregroundColor: Colors.white,
           ),
-          child: Text('Tomar Control'),
+          child: const Text('Tomar Control'),
         ),
       ],
     );

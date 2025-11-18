@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
             elevation: 2,
           ),
         ),
-        home: LoginView(),
+        home: const LoginView(),
         debugShowCheckedModeBanner: false,
       ),
     );

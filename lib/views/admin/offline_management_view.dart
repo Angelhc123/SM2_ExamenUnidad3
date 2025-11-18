@@ -6,7 +6,7 @@ import '../../services/offline_service.dart';
 import '../../widgets/connectivity_status_widget.dart';
 
 class OfflineManagementView extends StatefulWidget {
-  const OfflineManagementView({Key? key}) : super(key: key);
+  const OfflineManagementView({super.key});
 
   @override
   State<OfflineManagementView> createState() => _OfflineManagementViewState();

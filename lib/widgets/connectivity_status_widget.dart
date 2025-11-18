@@ -6,8 +6,7 @@ import '../services/offline_service.dart';
 class ConnectivityStatusWidget extends StatelessWidget {
   final Widget child;
 
-  const ConnectivityStatusWidget({Key? key, required this.child})
-    : super(key: key);
+  const ConnectivityStatusWidget({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +39,11 @@ class ConnectivityBanner extends StatelessWidget {
   final VoidCallback? onRetry;
 
   const ConnectivityBanner({
-    Key? key,
+    super.key,
     required this.status,
     required this.pendingEvents,
     this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -134,8 +133,7 @@ class OfflineIndicator extends StatelessWidget {
   final double size;
   final Color? color;
 
-  const OfflineIndicator({Key? key, this.size = 24, this.color})
-    : super(key: key);
+  const OfflineIndicator({super.key, this.size = 24, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +178,7 @@ class OfflineIndicator extends StatelessWidget {
 class PendingEventsIndicator extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const PendingEventsIndicator({Key? key, this.onTap}) : super(key: key);
+  const PendingEventsIndicator({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {

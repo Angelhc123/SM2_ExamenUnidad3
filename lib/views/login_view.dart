@@ -10,8 +10,10 @@ import 'user/user_nfc_view.dart';
 void unawaited(Future<void> future) {}
 
 class LoginView extends StatefulWidget {
+  const LoginView({super.key});
+
   @override
-  _LoginViewState createState() => _LoginViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
 class _LoginViewState extends State<LoginView> {
@@ -42,12 +44,12 @@ class _LoginViewState extends State<LoginView> {
       if (authViewModel.isAdmin) {
         unawaited(Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AdminView()),
+          MaterialPageRoute(builder: (context) => const AdminView()),
         ));
       } else {
         unawaited(Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => UserNfcView()),
+          MaterialPageRoute(builder: (context) => const UserNfcView()),
         ));
       }
     }
@@ -61,13 +63,13 @@ class _LoginViewState extends State<LoginView> {
         child: Consumer<AuthViewModel>(
           builder: (context, authViewModel, child) {
             return SingleChildScrollView(
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 60),
+                    const SizedBox(height: 60),
 
                     // Logo y título
                     Icon(
@@ -75,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                       size: 80,
                       color: Theme.of(context).primaryColor,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
                       'Control de Acceso NFC',
                       style: TextStyle(
@@ -84,12 +86,12 @@ class _LoginViewState extends State<LoginView> {
                         color: Colors.grey[800],
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       'Sistema de control de asistencias',
                       style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                     ),
-                    SizedBox(height: 48),
+                    const SizedBox(height: 48),
 
                     // Formulario de login
                     CustomTextField(
@@ -110,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
                     CustomTextField(
                       label: 'Contraseña',
@@ -135,14 +137,14 @@ class _LoginViewState extends State<LoginView> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
                     // Mensaje de error
                     if (authViewModel.errorMessage != null)
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.all(12),
-                        margin: EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.all(12),
+                        margin: const EdgeInsets.only(bottom: 16),
                         decoration: BoxDecoration(
                           color: Colors.red[50],
                           border: Border.all(color: Colors.red[200]!),
@@ -155,7 +157,7 @@ class _LoginViewState extends State<LoginView> {
                               color: Colors.red[600],
                               size: 20,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 authViewModel.errorMessage!,
@@ -174,11 +176,11 @@ class _LoginViewState extends State<LoginView> {
                       icon: Icons.login,
                       onPressed: _handleLogin,
                     ),
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
                     // Información adicional
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.grey[50],
                         borderRadius: BorderRadius.circular(8),
@@ -187,7 +189,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Column(
                         children: [
                           Icon(Icons.info_outline, color: Colors.blue[600]),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             'Sistema de Control de Acceso',
                             style: TextStyle(
@@ -195,7 +197,7 @@ class _LoginViewState extends State<LoginView> {
                               color: Colors.grey[700],
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             'Use sus credenciales para acceder al sistema',
                             style: TextStyle(

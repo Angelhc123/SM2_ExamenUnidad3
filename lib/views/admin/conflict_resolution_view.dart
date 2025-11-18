@@ -8,10 +8,10 @@ class ConflictResolutionView extends StatefulWidget {
   final Function(List<ConflictData>) onConflictsResolved;
 
   const ConflictResolutionView({
-    Key? key,
+    super.key,
     required this.conflicts,
     required this.onConflictsResolved,
-  }) : super(key: key);
+  });
 
   @override
   State<ConflictResolutionView> createState() => _ConflictResolutionViewState();
@@ -25,14 +25,14 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Resolver Conflictos de Sincronización'),
+        title: const Text('Resolver Conflictos de Sincronización'),
         backgroundColor: Colors.orange,
         foregroundColor: Colors.white,
       ),
       body: Consumer<SyncService>(
         builder: (context, syncService, child) {
           if (widget.conflicts.isEmpty) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -51,12 +51,12 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
             children: [
               // Header con información de conflictos
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 color: Colors.orange[50],
                 child: Row(
                   children: [
                     Icon(Icons.warning, color: Colors.orange[700]),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
               // Lista de conflictos
               Expanded(
                 child: ListView.builder(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   itemCount: widget.conflicts.length,
                   itemBuilder: (context, index) {
                     final conflict = widget.conflicts[index];
@@ -93,7 +93,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
 
               // Botones de acción
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -101,7 +101,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
                       color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 1,
                       blurRadius: 4,
-                      offset: Offset(0, -2),
+                      offset: const Offset(0, -2),
                     ),
                   ],
                 ),
@@ -112,19 +112,19 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
                         Expanded(
                           child: OutlinedButton(
                             onPressed: _resolveAllWithServer,
-                            child: Text('Usar Datos del Servidor'),
+                            child: const Text('Usar Datos del Servidor'),
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: OutlinedButton(
                             onPressed: _resolveAllWithLocal,
-                            child: Text('Usar Datos Locales'),
+                            child: const Text('Usar Datos Locales'),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     CustomButton(
                       text: 'Aplicar Resoluciones',
                       width: double.infinity,
@@ -146,34 +146,34 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
 
   Widget _buildConflictCard(ConflictData conflict, int index) {
     return Card(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header del conflicto
             Row(
               children: [
-                Icon(Icons.merge_type, color: Colors.orange),
-                SizedBox(width: 8),
+                const Icon(Icons.merge_type, color: Colors.orange),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     '${conflict.collection} - ${conflict.id}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),
                 Chip(
                   label: Text(
                     conflict.conflictType,
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
                   ),
                   backgroundColor: Colors.red[400],
                 ),
               ],
             ),
 
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
 
             // Información de timestamps
             Row(
@@ -185,7 +185,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
                     Colors.blue,
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: _buildTimestampInfo(
                     'Local',
@@ -196,19 +196,19 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
               ],
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Comparación de datos
             _buildDataComparison(conflict),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Opciones de resolución
-            Text(
+            const Text(
               'Seleccionar resolución:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             _buildResolutionOptions(conflict),
           ],
         ),
@@ -218,7 +218,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
 
   Widget _buildTimestampInfo(String label, DateTime timestamp, Color color) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
@@ -235,10 +235,10 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
               fontSize: 12,
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             '${timestamp.day}/${timestamp.month} ${timestamp.hour}:${timestamp.minute.toString().padLeft(2, '0')}',
-            style: TextStyle(fontSize: 11),
+            style: const TextStyle(fontSize: 11),
           ),
         ],
       ),
@@ -247,7 +247,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
 
   Widget _buildDataComparison(ConflictData conflict) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.grey[50],
         borderRadius: BorderRadius.circular(8),
@@ -256,11 +256,11 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Cambios detectados:',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ...conflict.serverData.keys
               .where(
                 (key) => conflict.serverData[key] != conflict.localData[key],
@@ -274,20 +274,20 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
 
   Widget _buildFieldComparison(String field, ConflictData conflict) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
           SizedBox(
             width: 80,
             child: Text(
               '$field:',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
             child: Text(
               'Servidor: ${conflict.serverData[field]} | Local: ${conflict.localData[field]}',
-              style: TextStyle(fontSize: 10),
+              style: const TextStyle(fontSize: 10),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -300,11 +300,11 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
     return Column(
       children: [
         RadioListTile<ConflictResolution>(
-          title: Text(
+          title: const Text(
             'Usar datos del servidor',
             style: TextStyle(fontSize: 14),
           ),
-          subtitle: Text(
+          subtitle: const Text(
             'Los datos remotos sobrescribirán los locales',
             style: TextStyle(fontSize: 12),
           ),
@@ -315,8 +315,8 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
           dense: true,
         ),
         RadioListTile<ConflictResolution>(
-          title: Text('Usar datos locales', style: TextStyle(fontSize: 14)),
-          subtitle: Text(
+          title: const Text('Usar datos locales', style: TextStyle(fontSize: 14)),
+          subtitle: const Text(
             'Los datos locales sobrescribirán los remotos',
             style: TextStyle(fontSize: 12),
           ),
@@ -327,8 +327,8 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
           dense: true,
         ),
         RadioListTile<ConflictResolution>(
-          title: Text('Fusionar datos', style: TextStyle(fontSize: 14)),
-          subtitle: Text(
+          title: const Text('Fusionar datos', style: TextStyle(fontSize: 14)),
+          subtitle: const Text(
             'Combinar ambos conjuntos de datos automáticamente',
             style: TextStyle(fontSize: 12),
           ),
@@ -375,7 +375,7 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('✅ Conflictos resueltos exitosamente'),
             backgroundColor: Colors.green,
           ),

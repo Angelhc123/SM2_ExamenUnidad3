@@ -4,8 +4,10 @@ import '../../viewmodels/reports_viewmodel.dart';
 import '../../widgets/status_widgets.dart';
 
 class ReportsView extends StatefulWidget {
+  const ReportsView({super.key});
+
   @override
-  _ReportsViewState createState() => _ReportsViewState();
+  State<ReportsView> createState() => _ReportsViewState();
 }
 
 class _ReportsViewState extends State<ReportsView>
@@ -48,12 +50,12 @@ class _ReportsViewState extends State<ReportsView>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(reportsViewModel.errorMessage!, textAlign: TextAlign.center),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _loadReportsData,
-                child: Text('Reintentar'),
+                child: const Text('Reintentar'),
               ),
             ],
           );
@@ -63,7 +65,7 @@ class _ReportsViewState extends State<ReportsView>
           children: [
             // Header con resumen
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -71,7 +73,7 @@ class _ReportsViewState extends State<ReportsView>
                     color: Colors.grey.withOpacity(0.1),
                     spreadRadius: 1,
                     blurRadius: 4,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -86,7 +88,7 @@ class _ReportsViewState extends State<ReportsView>
                       color: Colors.grey[800],
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
@@ -97,7 +99,7 @@ class _ReportsViewState extends State<ReportsView>
                           Icons.today,
                         ),
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: _buildSummaryCard(
                           'Esta Semana',
@@ -115,7 +117,7 @@ class _ReportsViewState extends State<ReportsView>
             // Tabs
             TabBar(
               controller: _tabController,
-              tabs: [
+              tabs: const [
                 Tab(text: 'Estadísticas', icon: Icon(Icons.bar_chart)),
                 Tab(text: 'Asistencias', icon: Icon(Icons.list)),
                 Tab(text: 'Estudiantes', icon: Icon(Icons.school)),
@@ -146,7 +148,7 @@ class _ReportsViewState extends State<ReportsView>
     IconData icon,
   ) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
@@ -155,7 +157,7 @@ class _ReportsViewState extends State<ReportsView>
       child: Row(
         children: [
           Icon(icon, color: color, size: 20),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,17 +186,17 @@ class _ReportsViewState extends State<ReportsView>
     return RefreshIndicator(
       onRefresh: _loadReportsData,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Top facultades
             _buildTopFacultades(reportsViewModel),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Distribución por hora (simplificada)
             _buildHourDistribution(reportsViewModel),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Resumen general
             _buildGeneralSummary(reportsViewModel),
@@ -209,25 +211,25 @@ class _ReportsViewState extends State<ReportsView>
 
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Top Facultades por Asistencias',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             ...topFacultades
                 .map(
                   (entry) => Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(child: Text(entry.key)),
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 8,
                             vertical: 2,
                           ),
@@ -247,7 +249,7 @@ class _ReportsViewState extends State<ReportsView>
                     ),
                   ),
                 )
-                .toList(),
+                ,
           ],
         ),
       ),
@@ -259,16 +261,16 @@ class _ReportsViewState extends State<ReportsView>
 
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Distribución por Horas del Día',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
-            Container(
+            const SizedBox(height: 12),
+            SizedBox(
               height: 200,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -289,26 +291,26 @@ class _ReportsViewState extends State<ReportsView>
 
                   return Container(
                     width: 30,
-                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         if (asistencias > 0)
-                          Text('$asistencias', style: TextStyle(fontSize: 10)),
+                          Text('$asistencias', style: const TextStyle(fontSize: 10)),
                         Container(
                           width: 20,
                           height: altura,
                           decoration: BoxDecoration(
                             color: Colors.blue[400],
-                            borderRadius: BorderRadius.vertical(
+                            borderRadius: const BorderRadius.vertical(
                               top: Radius.circular(4),
                             ),
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           '${hora.toString().padLeft(2, '0')}h',
-                          style: TextStyle(fontSize: 10),
+                          style: const TextStyle(fontSize: 10),
                         ),
                       ],
                     ),
@@ -325,15 +327,15 @@ class _ReportsViewState extends State<ReportsView>
   Widget _buildGeneralSummary(ReportsViewModel reportsViewModel) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Resumen General',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             _buildSummaryRow(
               'Total Estudiantes',
               '${reportsViewModel.alumnos.length}',
@@ -358,12 +360,12 @@ class _ReportsViewState extends State<ReportsView>
 
   Widget _buildSummaryRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label),
-          Text(value, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -373,16 +375,16 @@ class _ReportsViewState extends State<ReportsView>
     return RefreshIndicator(
       onRefresh: _loadReportsData,
       child: ListView.builder(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         itemCount: reportsViewModel.asistencias.length,
         itemBuilder: (context, index) {
           final asistencia = reportsViewModel.asistencias[index];
           return Card(
-            margin: EdgeInsets.only(bottom: 8),
+            margin: const EdgeInsets.only(bottom: 8),
             child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.green[100],
-                child: Icon(Icons.check, color: Colors.green),
+                child: const Icon(Icons.check, color: Colors.green),
               ),
               title: Text(asistencia.nombreCompleto),
               subtitle: Column(
@@ -398,7 +400,7 @@ class _ReportsViewState extends State<ReportsView>
                 children: [
                   Text(
                     asistencia.entradaTipo,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,
@@ -406,7 +408,7 @@ class _ReportsViewState extends State<ReportsView>
                   ),
                   Text(
                     asistencia.puerta,
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
               ),
@@ -421,12 +423,12 @@ class _ReportsViewState extends State<ReportsView>
     return RefreshIndicator(
       onRefresh: _loadReportsData,
       child: ListView.builder(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         itemCount: reportsViewModel.alumnos.length,
         itemBuilder: (context, index) {
           final alumno = reportsViewModel.alumnos[index];
           return Card(
-            margin: EdgeInsets.only(bottom: 8),
+            margin: const EdgeInsets.only(bottom: 8),
             child: ListTile(
               leading: CircleAvatar(
                 backgroundColor:
@@ -446,7 +448,7 @@ class _ReportsViewState extends State<ReportsView>
                 ],
               ),
               trailing: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: alumno.isActive ? Colors.green[100] : Colors.red[100],
                   borderRadius: BorderRadius.circular(12),
