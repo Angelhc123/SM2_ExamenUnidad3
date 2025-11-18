@@ -1,1 +1,87 @@
 include: package:flutter_lints/flutter.yaml
+
+# Configuración estricta para detectar TODAS las advertencias
+analyzer:
+  # Tratar advertencias como errores
+  errors:
+    # Errores de sintaxis y tipos
+    invalid_assignment: error
+    invalid_use_of_protected_member: error
+    
+    # Advertencias comunes
+    unused_import: error
+    unused_local_variable: error
+    dead_code: error
+    deprecated_member_use: warning
+    deprecated_member_use_from_same_package: warning
+    
+    # Lint rules como errores
+    avoid_print: error
+    prefer_const_constructors: warning
+    prefer_const_literals_to_create_immutables: warning
+    avoid_unnecessary_containers: warning
+    sized_box_for_whitespace: warning
+    use_key_in_widget_constructors: warning
+    
+  # Excluir archivos generados
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+    - '**/generated_plugin_registrant.dart'
+    - 'lib/generated/**'
+
+# Reglas de linting adicionales
+linter:
+  rules:
+    # Errores comunes
+    - avoid_print
+    - avoid_returning_null_for_void
+    - cancel_subscriptions
+    - close_sinks
+    - valid_regexps
+    
+    # Estilo y buenas prácticas
+    - always_declare_return_types
+    - annotate_overrides
+    - await_only_futures
+    - camel_case_types
+    - constant_identifier_names
+    - empty_catches
+    - empty_constructor_bodies
+    - exhaustive_cases
+    - implementation_imports
+    - library_names
+    - library_prefixes
+    - no_duplicate_case_values
+    - null_closures
+    - prefer_adjacent_string_concatenation
+    - prefer_collection_literals
+    - prefer_conditional_assignment
+    - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_const_declarations
+    - prefer_const_literals_to_create_immutables
+    - prefer_final_fields
+    - prefer_final_locals
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_single_quotes
+    - recursive_getters
+    - slash_for_doc_comments
+    - sort_child_properties_last
+    - type_init_formals
+    - unawaited_futures
+    - unnecessary_brace_in_string_interps
+    - unnecessary_const
+    - unnecessary_new
+    - unnecessary_null_in_if_null_operators
+    - unnecessary_this
+    - unrelated_type_equality_checks
+    - use_function_type_syntax_for_parameters
+    - use_rethrow_when_possible
+    
+    # Widget y Flutter específicas
+    - sized_box_for_whitespace
+    - use_key_in_widget_constructors
+    - avoid_unnecessary_containers
+    - prefer_interpolation_to_compose_strings

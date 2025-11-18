@@ -39,15 +39,13 @@ jobs:
       - name: Instalar dependencias
         run: flutter pub get
 
-      # 6. Analizar código (lint)
+      # 6. Analizar código (lint) - FALLA SI HAY ERRORES O ADVERTENCIAS
       - name: Análisis estático del código
-        run: flutter analyze --no-fatal-infos
-        continue-on-error: true
+        run: flutter analyze --fatal-infos --fatal-warnings
 
-      # 7. Verificar formato del código
+      # 7. Verificar formato del código - FALLA SI EL CÓDIGO NO ESTÁ FORMATEADO
       - name: Verificar formato del código
         run: dart format --set-exit-if-changed .
-        continue-on-error: true
 
       # 8. Ejecutar pruebas unitarias
       - name: Ejecutar pruebas unitarias
@@ -69,6 +67,9 @@ jobs:
       # 1. Clonar el repositorio
       - name: Checkout código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          retries: 3
 
       # 2. Configurar Node.js
       - name: Configurar Node.js
@@ -98,6 +99,9 @@ jobs:
       # 1. Clonar el repositorio
       - name: Checkout código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          retries: 3
 
       # 2. Configurar Java
       - name: Configurar Java
