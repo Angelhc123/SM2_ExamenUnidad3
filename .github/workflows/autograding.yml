@@ -1,0 +1,122 @@
+name: Autograding Tests
+
+on:
+  - push
+  - pull_request
+  - workflow_dispatch
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ========================================================================
+      # Configuración del entorno
+      # ========================================================================
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.1'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # ========================================================================
+      # TEST 1: Pruebas del Modelo AlumnoModel
+      # ========================================================================
+      - name: TEST 1 - Modelo AlumnoModel
+        id: test1
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TEST 1 - Modelo AlumnoModel
+          setup-command: ''
+          command: flutter test --no-pub --plain-name "TEST 1 - Modelo AlumnoModel"
+          timeout: 10
+          max-score: 0
+        continue-on-error: true
+
+      # ========================================================================
+      # TEST 2: Pruebas del Modelo UsuarioModel
+      # ========================================================================
+      - name: TEST 2 - Modelo UsuarioModel
+        id: test2
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TEST 2 - Modelo UsuarioModel
+          setup-command: ''
+          command: flutter test --no-pub --plain-name "TEST 2 - Modelo UsuarioModel"
+          timeout: 10
+          max-score: 0
+        continue-on-error: true
+
+      # ========================================================================
+      # TEST 3: Pruebas del Modelo AsistenciaModel
+      # ========================================================================
+      - name: TEST 3 - Modelo AsistenciaModel
+        id: test3
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TEST 3 - Modelo AsistenciaModel
+          setup-command: ''
+          command: flutter test --no-pub --plain-name "TEST 3 - Modelo AsistenciaModel"
+          timeout: 10
+          max-score: 0
+        continue-on-error: true
+
+      # ========================================================================
+      # TEST 4: Pruebas del Modelo PresenciaModel
+      # ========================================================================
+      - name: TEST 4 - Modelo PresenciaModel
+        id: test4
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TEST 4 - Modelo PresenciaModel
+          setup-command: ''
+          command: flutter test --no-pub --plain-name "TEST 4 - Modelo PresenciaModel"
+          timeout: 10
+          max-score: 0
+        continue-on-error: true
+
+      # ========================================================================
+      # TEST 5: Pruebas de Configuración API
+      # ========================================================================
+      - name: TEST 5 - Configuración API
+        id: test5
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TEST 5 - Configuración API
+          setup-command: ''
+          command: flutter test --no-pub --plain-name "TEST 5 - Configuración API"
+          timeout: 10
+          max-score: 0
+        continue-on-error: true
+
+      # ========================================================================
+      # Reporte final de autograding
+      # ========================================================================
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TEST1_RESULTS: "${{steps.test1.outputs.result}}"
+          TEST2_RESULTS: "${{steps.test2.outputs.result}}"
+          TEST3_RESULTS: "${{steps.test3.outputs.result}}"
+          TEST4_RESULTS: "${{steps.test4.outputs.result}}"
+          TEST5_RESULTS: "${{steps.test5.outputs.result}}"
+        with:
+          runners: test1,test2,test3,test4,test5
