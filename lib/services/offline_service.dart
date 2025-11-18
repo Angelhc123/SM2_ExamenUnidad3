@@ -8,6 +8,9 @@ import '../models/asistencia_model.dart';
 import 'api_service.dart';
 import 'sync_service.dart';
 
+// Helper para futures no esperados
+void unawaited(Future<void> future) {}
+
 // Enums para el sistema offline
 enum ConnectionStatus { online, offline, connecting }
 
@@ -274,7 +277,7 @@ class OfflineService extends ChangeNotifier {
 
     // Si estamos online, intentar sincronizar inmediatamente
     if (isOnline && !_isSyncing) {
-      _processPendingEvents();
+      unawaited(_processPendingEvents());
     }
 
     notifyListeners();

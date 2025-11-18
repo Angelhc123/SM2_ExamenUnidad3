@@ -177,6 +177,7 @@ class AdminViewModel extends ChangeNotifier {
   }
 
   // Registrar cambio en historial (método para implementación futura)
+  // ignore: unused_element
   Future<void> _registrarCambio({
     required String entidadId,
     required String tipoEntidad,

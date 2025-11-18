@@ -64,7 +64,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
       nfcViewModel.stopNfcScan();
     } else if (state == AppLifecycleState.resumed) {
       // Cuando la app se reactiva, intentar leer NFC inmediatamente
-      print('📱 App reactivada, intentando leer NFC...');
+      // print('📱 App reactivada, intentando leer NFC...');
       Future.delayed(const Duration(milliseconds: 500), () {
         nfcViewModel.readNfcImmediately();
       });

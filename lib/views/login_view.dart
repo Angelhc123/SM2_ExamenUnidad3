@@ -6,6 +6,9 @@ import '../widgets/custom_button.dart';
 import 'admin/admin_view.dart';
 import 'user/user_nfc_view.dart';
 
+// Helper para futures no esperados
+void unawaited(Future<void> future) {}
+
 class LoginView extends StatefulWidget {
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -37,15 +40,15 @@ class _LoginViewState extends State<LoginView> {
     if (success && mounted) {
       // Navegar según el rol del usuario
       if (authViewModel.isAdmin) {
-        Navigator.pushReplacement(
+        unawaited(Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => AdminView()),
-        );
+        ));
       } else {
-        Navigator.pushReplacement(
+        unawaited(Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => UserNfcView()),
-        );
+        ));
       }
     }
   }

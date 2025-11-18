@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../services/api_service.dart';
 
+// Helper para futures no esperados
+void unawaited(Future<void> future) {}
+
 class SessionManagementView extends StatefulWidget {
   final String adminId;
   final String adminName;
@@ -88,11 +91,11 @@ class _SessionManagementViewState extends State<SessionManagementView> {
         if (success) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Sesión finalizada exitosamente'),
+              content: const Text('Sesión finalizada exitosamente'),
               backgroundColor: Colors.green,
             ),
           );
-          _cargarSesionesActivas();
+          unawaited(_cargarSesionesActivas());
         } else {
           _mostrarError('Error al finalizar la sesión');
         }
