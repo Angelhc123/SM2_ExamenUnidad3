@@ -1,5 +1,5 @@
 # Dockerfile para Railway - Solo Backend Node.js
-FROM node:18-alpine
+FROM node:25-alpine
 
 # Crear directorio de trabajo
 WORKDIR /app
