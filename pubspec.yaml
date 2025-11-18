@@ -20,7 +20,7 @@ dependencies:
   flutter_svg: ^2.0.9 # Replace with the latest version
   carousel_slider: ^4.2.1 # Replace with the latest version
   shimmer: ^3.0.0 # Replace with the latest version
-  animations: ^2.0.8
+  animations: ^2.1.1
   cupertino_icons: ^1.0.2
   http: ^1.2.0
   flutter_nfc_kit: ^3.6.0
