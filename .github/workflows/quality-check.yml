@@ -46,7 +46,7 @@ jobs:
 
       # 7. Verificar formato del código
       - name: Verificar formato del código
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
         continue-on-error: true
 
       # 8. Ejecutar pruebas unitarias
