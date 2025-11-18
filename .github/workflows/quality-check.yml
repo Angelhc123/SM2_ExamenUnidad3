@@ -53,7 +53,7 @@ jobs:
 
       # 9. Subir reporte de cobertura (opcional)
       - name: Subir reporte de cobertura
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         if: success()
         with:
           files: ./coverage/lcov.info
