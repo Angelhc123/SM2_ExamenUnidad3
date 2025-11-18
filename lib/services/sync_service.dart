@@ -121,9 +121,9 @@ class SyncService extends ChangeNotifier {
   List<String> _syncLog = [];
 
   // Nuevos campos para versionado y conflictos
-  Map<String, int> _localVersions = {};
-  List<ConflictData> _pendingConflicts = [];
-  List<ConflictData> _lastConflicts = [];
+  final Map<String, int> _localVersions = {};
+  final List<ConflictData> _pendingConflicts = [];
+  final List<ConflictData> _lastConflicts = [];
   SyncStatus _currentStatus = SyncStatus.idle;
 
   // Getters
@@ -157,7 +157,7 @@ class SyncService extends ChangeNotifier {
       _startAutoSync();
     }
     _addLogEntry(
-      '⚙️ Intervalo de sincronización cambiado a ${minutes} minutos',
+      '⚙️ Intervalo de sincronización cambiado a $minutes minutos',
     );
     notifyListeners();
   }
@@ -321,7 +321,7 @@ class SyncService extends ChangeNotifier {
   Future<List<ConflictData>> _detectConflicts(
     Map<String, int> serverVersions,
   ) async {
-    List<ConflictData> conflicts = [];
+    final List<ConflictData> conflicts = [];
 
     for (final entry in serverVersions.entries) {
       final collection = entry.key;
@@ -698,7 +698,7 @@ class SyncService extends ChangeNotifier {
       _addLogEntry('📚 Sincronizando datos de estudiantes...');
 
       // Obtener datos actualizados de estudiantes
-      List<AlumnoModel> estudiantes = await _apiService.getAlumnos();
+      final List<AlumnoModel> estudiantes = await _apiService.getAlumnos();
 
       _addLogEntry(
         '📊 ${estudiantes.length} registros de estudiantes procesados',
@@ -713,7 +713,7 @@ class SyncService extends ChangeNotifier {
       _addLogEntry('✅ Datos de estudiantes sincronizados');
     } catch (e) {
       _addLogEntry('❌ Error sincronizando estudiantes: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -730,7 +730,7 @@ class SyncService extends ChangeNotifier {
       _addLogEntry('✅ Configuraciones sincronizadas');
     } catch (e) {
       _addLogEntry('❌ Error sincronizando configuraciones: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -953,7 +953,7 @@ class SyncService extends ChangeNotifier {
       final backupKeys =
           allKeys.where((key) => key.startsWith('backup_')).toList();
 
-      List<Map<String, dynamic>> backups = [];
+      final List<Map<String, dynamic>> backups = [];
 
       for (String key in backupKeys) {
         final backupJson = prefs.getString(key);

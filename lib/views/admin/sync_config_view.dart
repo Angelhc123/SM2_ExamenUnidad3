@@ -229,7 +229,7 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                         syncService.isSyncing
                             ? null
                             : () async {
-                              bool success = await syncService.performSync();
+                              final bool success = await syncService.performSync();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(

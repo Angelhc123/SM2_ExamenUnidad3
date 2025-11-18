@@ -21,7 +21,7 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
 
   void _setupAnimations() {
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 

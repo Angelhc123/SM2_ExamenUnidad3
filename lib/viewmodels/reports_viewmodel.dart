@@ -81,7 +81,7 @@ class ReportsViewModel extends ChangeNotifier {
   ) {
     return _asistencias.where((asistencia) {
       return asistencia.fechaHora.isAfter(start) &&
-          asistencia.fechaHora.isBefore(end.add(Duration(days: 1)));
+          asistencia.fechaHora.isBefore(end.add(const Duration(days: 1)));
     }).toList();
   }
 
@@ -116,10 +116,10 @@ class ReportsViewModel extends ChangeNotifier {
 
   // Asistencias por hora del día
   Map<int, int> getAsistenciasPorHora() {
-    Map<int, int> asistenciasPorHora = {};
+    final Map<int, int> asistenciasPorHora = {};
 
     for (var asistencia in _asistencias) {
-      int hora = asistencia.fechaHora.hour;
+      final int hora = asistencia.fechaHora.hour;
       asistenciasPorHora[hora] = (asistenciasPorHora[hora] ?? 0) + 1;
     }
 
@@ -128,14 +128,14 @@ class ReportsViewModel extends ChangeNotifier {
 
   // Top facultades con más asistencias
   List<MapEntry<String, int>> getTopFacultades({int limit = 5}) {
-    Map<String, int> asistenciasPorFacultad = {};
+    final Map<String, int> asistenciasPorFacultad = {};
 
     for (var asistencia in _asistencias) {
       asistenciasPorFacultad[asistencia.siglasFacultad] =
           (asistenciasPorFacultad[asistencia.siglasFacultad] ?? 0) + 1;
     }
 
-    var sorted =
+    final sorted =
         asistenciasPorFacultad.entries.toList()
           ..sort((a, b) => b.value.compareTo(a.value));
 

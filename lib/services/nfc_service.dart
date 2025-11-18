@@ -1,5 +1,8 @@
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 
+// Comentar prints para evitar errores de linting en producción
+// ignore_for_file: avoid_print
+
 class NfcService {
   static final NfcService _instance = NfcService._internal();
   factory NfcService() => _instance;
@@ -8,7 +11,7 @@ class NfcService {
   // Verificar disponibilidad de NFC
   Future<bool> isNfcAvailable() async {
     try {
-      NFCAvailability availability = await FlutterNfcKit.nfcAvailability;
+      final NFCAvailability availability = await FlutterNfcKit.nfcAvailability;
       return availability == NFCAvailability.available;
     } catch (e) {
       return false;
@@ -19,7 +22,7 @@ class NfcService {
   Future<String> readNfcCard() async {
     try {
       // Verificar disponibilidad
-      bool available = await isNfcAvailable();
+      final bool available = await isNfcAvailable();
       if (!available) {
         throw Exception('NFC no está disponible en este dispositivo');
       }
@@ -27,11 +30,11 @@ class NfcService {
       print('🔍 Iniciando polling NFC...');
 
       // Iniciar sesión NFC con timeout más corto para lectura inmediata
-      NFCTag tag = await FlutterNfcKit.poll(
-        timeout: Duration(seconds: 5),
+      final NFCTag tag = await FlutterNfcKit.poll(
+        timeout: const Duration(seconds: 5),
         iosMultipleTagMessage:
-            "Múltiples tags detectados, por favor acerque solo una pulsera",
-        iosAlertMessage: "Leyendo pulsera...",
+            'Múltiples tags detectados, por favor acerque solo una pulsera',
+        iosAlertMessage: 'Leyendo pulsera...',
       );
 
       // Verificar que es un tag válido
@@ -40,21 +43,21 @@ class NfcService {
       }
 
       // Leer datos del tag
-      String codigoUniversitario = await _extractCodigoFromTag(tag);
+      final String codigoUniversitario = await _extractCodigoFromTag(tag);
 
       return codigoUniversitario;
     } catch (e) {
       throw Exception('Error al leer NFC: $e');
     } finally {
       // Finalizar sesión NFC
-      await FlutterNfcKit.finish(iosAlertMessage: "Lectura completada");
+      await FlutterNfcKit.finish(iosAlertMessage: 'Lectura completada');
     }
   }
 
   // Extraer código universitario del tag NFC - Optimizado para MIFARE Classic
   Future<String> _extractCodigoFromTag(NFCTag tag) async {
     try {
-      String tagId = tag.id;
+      final String tagId = tag.id;
 
       print('🏷️ Tag detectado:');
       print('  - ID: $tagId');
@@ -65,18 +68,18 @@ class NfcService {
       // Método 1: Intentar leer datos NDEF si están disponibles
       if (tag.ndefAvailable == true) {
         try {
-          var ndefRecords = await FlutterNfcKit.readNDEFRecords();
+          final ndefRecords = await FlutterNfcKit.readNDEFRecords();
           print('📄 Registros NDEF encontrados: ${ndefRecords.length}');
 
           if (ndefRecords.isNotEmpty) {
             for (var record in ndefRecords) {
               if (record.payload != null && record.payload!.isNotEmpty) {
-                String payload = String.fromCharCodes(record.payload!);
+                final String payload = String.fromCharCodes(record.payload!);
                 print('📝 Payload NDEF: $payload');
 
                 // Buscar formato específico: "codigo:XXXXXXXX"
                 if (payload.contains('codigo:')) {
-                  String codigo = payload.split('codigo:')[1].trim();
+                  final String codigo = payload.split('codigo:')[1].trim();
                   print('✅ Código encontrado en NDEF: $codigo');
                   return codigo;
                 }
@@ -98,17 +101,17 @@ class NfcService {
       if (tag.type.toString().toLowerCase().contains('mifare') ||
           tag.standard.toString().toLowerCase().contains('14443')) {
         // Convertir ID hexadecimal a diferentes formatos
-        String hexId = tagId.toLowerCase().replaceAll(' ', '');
+        final String hexId = tagId.toLowerCase().replaceAll(' ', '');
         print('🔢 Procesando MIFARE Classic ID: $hexId');
 
         // Opción 1: Usar ID hexadecimal completo como código (en minúsculas)
         if (hexId.length >= 6) {
-          String codigoHex = hexId;
+          final String codigoHex = hexId;
           print('✅ Usando ID hex como código: $codigoHex');
           return codigoHex;
         } // Opción 2: Convertir hex a decimal y usar como código
         try {
-          int decimalId = int.parse(hexId, radix: 16);
+          final int decimalId = int.parse(hexId, radix: 16);
           String codigoDecimal = decimalId.toString();
           print('✅ Código decimal del ID: $codigoDecimal');
 
@@ -124,12 +127,12 @@ class NfcService {
       }
 
       // Método 3: Fallback - usar ID del tag directamente
-      String cleanId = tagId
+      final String cleanId = tagId
           .toLowerCase()
           .replaceAll(' ', '')
           .replaceAll(':', '');
       if (cleanId.length >= 6) {
-        String codigo =
+        final String codigo =
             cleanId.length > 8
                 ? cleanId.substring(cleanId.length - 8)
                 : cleanId;
@@ -149,7 +152,7 @@ class NfcService {
   Future<void> writeCodigoToNfc(String codigoUniversitario) async {
     try {
       // Verificar disponibilidad
-      bool available = await isNfcAvailable();
+      final bool available = await isNfcAvailable();
       if (!available) {
         throw Exception('NFC no está disponible en este dispositivo');
       }
@@ -170,7 +173,7 @@ class NfcService {
       print('📱 =================================');
 
       // Verificar disponibilidad
-      bool available = await isNfcAvailable();
+      final bool available = await isNfcAvailable();
       if (!available) {
         throw Exception('❌ NFC no está disponible en este dispositivo');
       }
@@ -178,9 +181,9 @@ class NfcService {
       print('📱 ✅ NFC disponible, iniciando polling...');
 
       // Iniciar polling NFC
-      NFCTag tag = await FlutterNfcKit.poll(
-        timeout: Duration(seconds: 8),
-        iosAlertMessage: "🔍 Acerque la pulsera al dispositivo...",
+      final NFCTag tag = await FlutterNfcKit.poll(
+        timeout: const Duration(seconds: 8),
+        iosAlertMessage: '🔍 Acerque la pulsera al dispositivo...',
       );
 
       print('📱 🏷️ Tag NFC detectado!');
@@ -191,7 +194,7 @@ class NfcService {
       }
 
       // Extraer código
-      String codigo = await _extractCodigoFromTag(tag);
+      final String codigo = await _extractCodigoFromTag(tag);
 
       print('📱 =================================');
       print('📱 ✅ LECTURA EXITOSA');
@@ -207,7 +210,7 @@ class NfcService {
       rethrow;
     } finally {
       try {
-        await FlutterNfcKit.finish(iosAlertMessage: "✅ Lectura completada");
+        await FlutterNfcKit.finish(iosAlertMessage: '✅ Lectura completada');
         print('📱 🔚 Sesión NFC finalizada');
       } catch (e) {
         print('📱 ⚠️ Error finalizando sesión: $e');

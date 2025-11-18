@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
 
     final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
 
-    bool success = await authViewModel.login(
+    final bool success = await authViewModel.login(
       _emailController.text.trim(),
       _passwordController.text,
     );

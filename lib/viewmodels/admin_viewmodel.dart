@@ -149,7 +149,7 @@ class AdminViewModel extends ChangeNotifier {
         adminNombre: 'Admin Principal',
         cambiosRealizados: {'nombre': 'Juan Pérez', 'rango': 'guardia'},
         descripcion: 'Nuevo guardia registrado',
-        fechaModificacion: DateTime.now().subtract(Duration(days: 2)),
+        fechaModificacion: DateTime.now().subtract(const Duration(days: 2)),
       ),
       HistorialModificacionModel(
         id: '2',
@@ -160,7 +160,7 @@ class AdminViewModel extends ChangeNotifier {
         adminNombre: 'Admin Principal',
         cambiosRealizados: {'telefono': '+51987654321'},
         descripcion: 'Actualización de teléfono',
-        fechaModificacion: DateTime.now().subtract(Duration(days: 1)),
+        fechaModificacion: DateTime.now().subtract(const Duration(days: 1)),
       ),
       HistorialModificacionModel(
         id: '3',
@@ -171,7 +171,7 @@ class AdminViewModel extends ChangeNotifier {
         adminNombre: 'Admin Principal',
         cambiosRealizados: {'estado': 'inactivo'},
         descripcion: 'Usuario desactivado por inactividad',
-        fechaModificacion: DateTime.now().subtract(Duration(hours: 3)),
+        fechaModificacion: DateTime.now().subtract(const Duration(hours: 3)),
       ),
     ];
   }

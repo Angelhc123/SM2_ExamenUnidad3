@@ -65,7 +65,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
     } else if (state == AppLifecycleState.resumed) {
       // Cuando la app se reactiva, intentar leer NFC inmediatamente
       print('📱 App reactivada, intentando leer NFC...');
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         nfcViewModel.readNfcImmediately();
       });
     }
@@ -73,7 +73,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
   Future<void> _checkNfcAvailability() async {
     final nfcViewModel = Provider.of<NfcViewModel>(context, listen: false);
-    bool available = await nfcViewModel.checkNfcAvailability();
+    final bool available = await nfcViewModel.checkNfcAvailability();
 
     if (!available && mounted) {
       _showNfcNotAvailableDialog();
@@ -242,7 +242,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
 
   Widget _buildScanStatus(NfcViewModel nfcViewModel) {
     if (nfcViewModel.isScanning) {
-      return LoadingWidget(
+      return const LoadingWidget(
         message:
             '� ESCÁNER ACTIVO\n📱 Acerque las pulseras una tras otra...\n� Presione "Detener" para finalizar',
         size: 60,
@@ -490,7 +490,7 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
     final lastAccessType = nfcViewModel.lastAccessType ?? 'entrada';
 
     // Determinar el tipo de acceso basándose en el tipo registrado
-    bool isEntrada = lastAccessType == 'entrada';
+    final bool isEntrada = lastAccessType == 'entrada';
 
     String tipoAcceso = 'ACCESO';
     Color backgroundColor = Colors.blue[50]!;

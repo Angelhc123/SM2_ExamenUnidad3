@@ -40,7 +40,7 @@ class _ReportsViewState extends State<ReportsView>
     return Consumer<ReportsViewModel>(
       builder: (context, reportsViewModel, child) {
         if (reportsViewModel.isLoading) {
-          return LoadingWidget(message: 'Cargando reportes...');
+          return const LoadingWidget(message: 'Cargando reportes...');
         }
 
         if (reportsViewModel.errorMessage != null) {

@@ -9,6 +9,9 @@ import '../services/nfc_service.dart';
 import '../services/autorizacion_service.dart';
 import '../services/offline_service.dart';
 
+// Permitir prints para debugging
+// ignore_for_file: avoid_print
+
 class NfcViewModel extends ChangeNotifier {
   final ApiService _apiService = ApiService();
   final NfcService _nfcService = NfcService();
@@ -80,7 +83,7 @@ class NfcViewModel extends ChangeNotifier {
       print('👮 Guardia configurado: $_guardiaNombre (ID: $_guardiaId)');
 
       // Verificar NFC disponible
-      bool available = await _nfcService.isNfcAvailable();
+      final bool available = await _nfcService.isNfcAvailable();
       if (!available) {
         throw Exception('NFC no está disponible en este dispositivo');
       }
@@ -90,7 +93,7 @@ class NfcViewModel extends ChangeNotifier {
       // Iniciar bucle de lectura continua
       await _startContinuousScanning();
     } catch (e) {
-      String errorMsg = e.toString().replaceAll('Exception: ', '');
+      final String errorMsg = e.toString().replaceAll('Exception: ', '');
       print('❌ Error en escaneo: $errorMsg');
       _setError('❌ $errorMsg');
       _setScanning(false);
@@ -104,7 +107,7 @@ class NfcViewModel extends ChangeNotifier {
         print('📡 Esperando próxima pulsera...');
 
         // Leer pulsera con timeout corto
-        String codigoUniversitario = await _nfcService.readNfcWithResult();
+        final String codigoUniversitario = await _nfcService.readNfcWithResult();
 
         if (_isScanning) {
           // Verificar que aún estamos escaneando
@@ -115,7 +118,7 @@ class NfcViewModel extends ChangeNotifier {
           await _processingleDetection(codigoUniversitario);
 
           // Pausa corta antes de la próxima lectura
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(const Duration(seconds: 2));
 
           if (_isScanning) {
             _setSuccess('🔄 LISTO - Acerque la siguiente pulsera...');
@@ -125,7 +128,7 @@ class NfcViewModel extends ChangeNotifier {
         if (_isScanning) {
           // Si hay error, seguir intentando
           print('⚠️ Error en lectura continua: $e');
-          await Future.delayed(Duration(milliseconds: 500));
+          await Future.delayed(const Duration(milliseconds: 500));
         }
       }
     }
@@ -142,7 +145,7 @@ class NfcViewModel extends ChangeNotifier {
       print('🔄 Iniciando lectura NFC inmediata...');
 
       // Intentar lectura con resultado visible
-      String codigoUniversitario = await _nfcService.readNfcWithResult();
+      final String codigoUniversitario = await _nfcService.readNfcWithResult();
 
       print('✅ Código leído: $codigoUniversitario');
 
@@ -164,33 +167,33 @@ class NfcViewModel extends ChangeNotifier {
 
   // Convertir código hex de pulsera al formato de BD
   List<String> _generarVariantesCodigoHex(String codigoHex) {
-    List<String> variantes = [];
+    final List<String> variantes = [];
 
     try {
       // Remover espacios
-      String hexLimpio = codigoHex.replaceAll(' ', '');
+      final String hexLimpio = codigoHex.replaceAll(' ', '');
 
       addLog('🔄 Generando variantes para: $codigoHex');
 
       // PRIMERO: Original en mayúsculas (formato más probable según la BD)
-      String originalMayus = hexLimpio.toUpperCase();
+      final String originalMayus = hexLimpio.toUpperCase();
       variantes.add(originalMayus);
       addLog('   V1 - Original mayús: $originalMayus');
 
       // SEGUNDO: Original en minúsculas
-      String originalMinus = hexLimpio.toLowerCase();
+      final String originalMinus = hexLimpio.toLowerCase();
       variantes.add(originalMinus);
       addLog('   V2 - Original minus: $originalMinus');
 
       // TERCERO: Si tiene 8 caracteres, probar formato invertido
       if (hexLimpio.length == 8) {
-        List<String> bytes = [];
+        final List<String> bytes = [];
         for (int i = 0; i < hexLimpio.length; i += 2) {
           bytes.add(hexLimpio.substring(i, i + 2));
         }
 
-        String invertidoMayus = bytes.reversed.join('').toUpperCase();
-        String invertidoMinus = bytes.reversed.join('').toLowerCase();
+        final String invertidoMayus = bytes.reversed.join('').toUpperCase();
+        final String invertidoMinus = bytes.reversed.join('').toLowerCase();
 
         variantes.add(invertidoMayus);
         variantes.add(invertidoMinus);
@@ -218,7 +221,7 @@ class NfcViewModel extends ChangeNotifier {
 
 
       // GENERAR MÚLTIPLES VARIANTES DEL CÓDIGO Y PROBAR CADA UNA
-      List<String> variantes = _generarVariantesCodigoHex(codigoUniversitario);
+      final List<String> variantes = _generarVariantesCodigoHex(codigoUniversitario);
 
       AlumnoModel? alumno;
 
@@ -274,8 +277,8 @@ class NfcViewModel extends ChangeNotifier {
         }
 
         // Mensaje diferenciado según el tipo
-        String emoji = tipoAcceso == 'entrada' ? '🟢' : '🔴';
-        String tipoTexto = tipoAcceso == 'entrada' ? 'ENTRADA' : 'SALIDA';
+        final String emoji = tipoAcceso == 'entrada' ? '🟢' : '🔴';
+        final String tipoTexto = tipoAcceso == 'entrada' ? 'ENTRADA' : 'SALIDA';
         _lastAccessType = tipoAcceso; // Guardar el tipo de acceso
         _setSuccess(
           '$emoji $tipoTexto registrada: ${alumno.nombreCompleto}',
@@ -473,7 +476,7 @@ class NfcViewModel extends ChangeNotifier {
         timestampDecision: decisionManual?.timestamp,
         // US029 - Ubicación detallada
         descripcionUbicacion:
-            'Acceso ${tipoAcceso} - Punto: ${_puntoControl ?? "Principal"} - Guardia: ${_guardiaNombre}',
+            'Acceso $tipoAcceso - Punto: ${_puntoControl ?? "Principal"} - Guardia: $_guardiaNombre',
       );
 
       addLog(

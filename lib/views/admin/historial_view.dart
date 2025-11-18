@@ -34,7 +34,7 @@ class _HistorialViewState extends State<HistorialView> {
       body: Consumer<AdminViewModel>(
         builder: (context, adminViewModel, child) {
           if (adminViewModel.isLoading && adminViewModel.historial.isEmpty) {
-            return LoadingWidget(message: 'Cargando historial...');
+            return const LoadingWidget(message: 'Cargando historial...');
           }
 
           if (adminViewModel.errorMessage != null &&

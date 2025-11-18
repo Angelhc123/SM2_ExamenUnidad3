@@ -91,7 +91,7 @@ class HistorialModificacionModel {
   String get resumenCambios {
     if (cambiosRealizados.isEmpty) return 'Sin cambios específicos';
 
-    List<String> cambios = [];
+    final List<String> cambios = [];
     cambiosRealizados.forEach((campo, valor) {
       if (campo == 'password') {
         cambios.add('Contraseña actualizada');

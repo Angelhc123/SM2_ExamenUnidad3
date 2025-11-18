@@ -41,7 +41,7 @@ class _UserManagementViewState extends State<UserManagementView> {
     return Consumer<AdminViewModel>(
       builder: (context, adminViewModel, child) {
         if (adminViewModel.isLoading && adminViewModel.usuarios.isEmpty) {
-          return LoadingWidget(message: 'Cargando usuarios...');
+          return const LoadingWidget(message: 'Cargando usuarios...');
         }
 
         if (adminViewModel.errorMessage != null &&
@@ -331,7 +331,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
               : _puertaController.text.trim(),
     );
 
-    bool success = await adminViewModel.createUsuario(nuevoUsuario);
+    final bool success = await adminViewModel.createUsuario(nuevoUsuario);
     if (success && mounted) {
       Navigator.pop(context);
     }
@@ -512,7 +512,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
 
     final adminViewModel = Provider.of<AdminViewModel>(context, listen: false);
 
-    bool success = await adminViewModel.changeUserPassword(
+    final bool success = await adminViewModel.changeUserPassword(
       widget.usuario.id,
       _passwordController.text,
     );

@@ -10,6 +10,9 @@ import '../models/decision_manual_model.dart';
 import '../models/presencia_model.dart';
 import '../config/api_config.dart';
 
+// Permitir prints para debugging
+// ignore_for_file: avoid_print
+
 class ApiService {
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;
@@ -28,7 +31,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => AlumnoModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener alumnos: ${response.statusCode}');
@@ -90,7 +93,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => UsuarioModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener usuarios: ${response.statusCode}');
@@ -164,7 +167,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => AsistenciaModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener asistencias: ${response.statusCode}');
@@ -205,7 +208,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => FacultadModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener facultades: ${response.statusCode}');
@@ -225,7 +228,7 @@ class ApiService {
       final response = await http.get(Uri.parse(url), headers: _headers);
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => EscuelaModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener escuelas: ${response.statusCode}');
@@ -245,7 +248,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => VisitaModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener visitas: ${response.statusCode}');
@@ -282,7 +285,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => ExternoModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener externos: ${response.statusCode}');
@@ -323,7 +326,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => DecisionManualModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener decisiones: ${response.statusCode}');
@@ -343,7 +346,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => PresenciaModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener presencia: ${response.statusCode}');
@@ -389,18 +392,18 @@ class ApiService {
 
   Future<bool> testServerConnection() async {
     try {
-      print('🧪 Probando conexión al servidor...');
+      // print('🧪 Probando conexión al servidor...');
       final response = await http.get(
         Uri.parse('${ApiConfig.baseUrl}/test'),
         headers: _headers,
       );
 
-      print('📨 Respuesta test: ${response.statusCode}');
-      print('📨 Cuerpo test: ${response.body}');
+      // print('📨 Respuesta test: ${response.statusCode}');
+      // print('📨 Cuerpo test: ${response.body}');
 
       return response.statusCode == 200;
     } catch (e) {
-      print('❌ Error en test de conexión: $e');
+      // print('❌ Error en test de conexión: $e');
       return false;
     }
   }
@@ -409,76 +412,67 @@ class ApiService {
 
   Future<void> registrarAsistenciaCompleta(AsistenciaModel asistencia) async {
     try {
-      print('📤 INICIANDO REGISTRO DE ASISTENCIA COMPLETA');
-      print('   URL destino: ${ApiConfig.baseUrl}/asistencias/completa');
-      print('   DNI: ${asistencia.dni}');
-      print('   Nombre: ${asistencia.nombreCompleto}');
-      print('   Tipo: ${asistencia.tipo}');
-      print('   Código: ${asistencia.codigoUniversitario}');
-      print('   Guardia ID: ${asistencia.guardiaId}');
-      print('   Guardia: ${asistencia.guardiaNombre}');
-      print('   Fecha: ${asistencia.fechaHora}');
-      print('   Headers: $_headers');
+      // print('📤 INICIANDO REGISTRO DE ASISTENCIA COMPLETA');
+      // print('   URL destino: ${ApiConfig.baseUrl}/asistencias/completa');
+      // print('   DNI: ${asistencia.dni}');
+      // print('   Nombre: ${asistencia.nombreCompleto}');
+      // print('   Tipo: ${asistencia.tipo}');
+      // print('   Código: ${asistencia.codigoUniversitario}');
+      // print('   Guardia ID: ${asistencia.guardiaId}');
+      // print('   Guardia: ${asistencia.guardiaNombre}');
+      // print('   Fecha: ${asistencia.fechaHora}');
+      // print('   Headers: $_headers');
 
       final jsonData = asistencia.toJson();
-      print('📋 Datos JSON completos:');
-      jsonData.forEach((key, value) {
-        print('   $key: $value');
-      });
+      // print('📋 Datos JSON completos:');
+      // jsonData.forEach((key, value) {
+      //   print('   $key: $value');
+      // });
 
       final body = json.encode(jsonData);
-      print('📋 Body final: $body');
+      // print('📋 Body final: $body');
 
-      print('🌐 Enviando petición POST...');
+      // print('🌐 Enviando petición POST...');
       final response = await http
           .post(
             Uri.parse('${ApiConfig.baseUrl}/asistencias/completa'),
             headers: _headers,
             body: body,
           )
-          .timeout(Duration(seconds: 30));
+          .timeout(const Duration(seconds: 30));
 
-      print('📨 RESPUESTA RECIBIDA:');
-      print('   Status Code: ${response.statusCode}');
-      print('   Headers: ${response.headers}');
-      print('   Body: ${response.body}');
+      // print('📨 RESPUESTA RECIBIDA:');
+      // print('   Status Code: ${response.statusCode}');
+      // print('   Headers: ${response.headers}');
+      // print('   Body: ${response.body}');
 
       if (response.statusCode == 201) {
-        print('✅ ASISTENCIA REGISTRADA EXITOSAMENTE EN MONGODB');
-        try {
-          final responseData = json.decode(response.body);
-          print('✅ ID en MongoDB: ${responseData['_id']}');
-        } catch (e) {
-          print('⚠️ No se pudo parsear respuesta JSON, pero status 201 OK');
-        }
+        // print('✅ ASISTENCIA REGISTRADA EXITOSAMENTE EN MONGODB');
+        // Asistencia registrada exitosamente
       } else if (response.statusCode >= 400 && response.statusCode < 500) {
         // Error del cliente (400-499)
         try {
           final error = json.decode(response.body);
-          print(
-              '❌ ERROR DEL CLIENTE (${response.statusCode}): ${error['error']}');
+          // print('❌ ERROR DEL CLIENTE (${response.statusCode}): ${error['error']}');
           throw Exception(
               'Error ${response.statusCode}: ${error['error'] ?? 'Error desconocido'}');
         } catch (e) {
-          print(
-              '❌ ERROR DEL CLIENTE (${response.statusCode}): ${response.body}');
+          // print('❌ ERROR DEL CLIENTE (${response.statusCode}): ${response.body}');
           throw Exception('Error ${response.statusCode}: ${response.body}');
         }
       } else if (response.statusCode >= 500) {
         // Error del servidor (500+)
-        print(
-            '❌ ERROR DEL SERVIDOR (${response.statusCode}): ${response.body}');
+        // print('❌ ERROR DEL SERVIDOR (${response.statusCode}): ${response.body}');
         throw Exception(
             'Error del servidor ${response.statusCode}: ${response.body}');
       } else {
-        print(
-            '❌ RESPUESTA INESPERADA (${response.statusCode}): ${response.body}');
+        // print('❌ RESPUESTA INESPERADA (${response.statusCode}): ${response.body}');
         throw Exception(
             'Respuesta inesperada ${response.statusCode}: ${response.body}');
       }
     } catch (e) {
-      print('❌ EXCEPCIÓN CRÍTICA EN REGISTRO: $e');
-      print('❌ Tipo de error: ${e.runtimeType}');
+      // print('❌ EXCEPCIÓN CRÍTICA EN REGISTRO: $e');
+      // print('❌ Tipo de error: ${e.runtimeType}');
       if (e is TimeoutException) {
         throw Exception('TIMEOUT: El servidor no respondió en 30 segundos');
       } else if (e is FormatException) {
@@ -581,7 +575,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.cast<Map<String, dynamic>>();
       } else {
         throw Exception(
@@ -702,7 +696,7 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
         return data.map((json) => AsistenciaModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener asistencias: ${response.statusCode}');
@@ -722,7 +716,7 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        List<dynamic> asistencias = data['asistencias'];
+        final List<dynamic> asistencias = data['asistencias'];
         return asistencias.map((json) => AsistenciaModel.fromJson(json)).toList();
       } else {
         throw Exception('Error al obtener asistencias: ${response.statusCode}');

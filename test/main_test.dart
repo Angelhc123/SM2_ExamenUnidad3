@@ -199,7 +199,7 @@ void main() {
         puntoEntrada: 'Puerta Este',
         estaDentro: false,
         guardiaEntrada: 'guard002',
-        horaSalida: horaEntrada.add(Duration(hours: 4)),
+        horaSalida: horaEntrada.add(const Duration(hours: 4)),
         puntoSalida: 'Puerta Oeste',
       );
 
@@ -213,7 +213,7 @@ void main() {
     });
 
     test('T4.3: PresenciaModel debe calcular tiempo en campus', () {
-      final horaEntrada = DateTime.now().subtract(Duration(hours: 3, minutes: 30));
+      final horaEntrada = DateTime.now().subtract(const Duration(hours: 3, minutes: 30));
       final presencia = PresenciaModel(
         id: 'pres003',
         estudianteId: 'alumno789',
