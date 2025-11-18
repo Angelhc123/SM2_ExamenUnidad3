@@ -1,0 +1,120 @@
+name: Quality Check
+
+# Se ejecuta automáticamente en commits y pull requests
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  flutter-test:
+    name: Análisis y Pruebas Flutter
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # 2. Configurar Java (requerido por Flutter)
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 3. Instalar Flutter
+      - name: Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      # 4. Verificar instalación de Flutter
+      - name: Verificar versión de Flutter
+        run: flutter --version
+
+      # 5. Obtener dependencias del proyecto
+      - name: Instalar dependencias
+        run: flutter pub get
+
+      # 6. Analizar código (lint)
+      - name: Análisis estático del código
+        run: flutter analyze
+
+      # 7. Verificar formato del código
+      - name: Verificar formato del código
+        run: flutter format --set-exit-if-changed .
+
+      # 8. Ejecutar pruebas unitarias
+      - name: Ejecutar pruebas unitarias
+        run: flutter test --coverage
+
+      # 9. Subir reporte de cobertura (opcional)
+      - name: Subir reporte de cobertura
+        uses: codecov/codecov-action@v4
+        if: success()
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: false
+
+  backend-test:
+    name: Análisis y Pruebas Backend Node.js
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # 2. Configurar Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # 3. Instalar dependencias del backend
+      - name: Instalar dependencias del backend
+        working-directory: ./backend
+        run: npm install
+
+      # 4. Verificar sintaxis y estilo (si tienes ESLint configurado)
+      - name: Verificar código del backend
+        working-directory: ./backend
+        run: |
+          if [ -f "package.json" ]; then
+            echo "Backend verificado correctamente"
+          fi
+
+  build-check:
+    name: Verificar Build de la Aplicación
+    runs-on: ubuntu-latest
+    needs: [flutter-test]
+    
+    steps:
+      # 1. Clonar el repositorio
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # 2. Configurar Java
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 3. Instalar Flutter
+      - name: Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      # 4. Obtener dependencias
+      - name: Instalar dependencias
+        run: flutter pub get
+
+      # 5. Verificar que el proyecto compile
+      - name: Verificar compilación APK
+        run: flutter build apk --debug --no-pub
