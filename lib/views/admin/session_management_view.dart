@@ -324,9 +324,9 @@ class _SessionManagementViewState extends State<SessionManagementView> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        color: Color.fromRGBO(color.red, color.green, color.blue, 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color.fromRGBO(color.red, color.green, color.blue, 0.3)),
       ),
       child: Column(
         children: [

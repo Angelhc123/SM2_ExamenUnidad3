@@ -525,12 +525,12 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: borderColor, width: 2),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Color.fromRGBO(0, 0, 0, 0.1),
             spreadRadius: 1,
             blurRadius: 4,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),

@@ -66,14 +66,14 @@ class _ReportsViewState extends State<ReportsView>
             // Header con resumen
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Color.fromRGBO(158, 158, 158, 0.1),
                     spreadRadius: 1,
                     blurRadius: 4,
-                    offset: const Offset(0, 2),
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
@@ -150,9 +150,9 @@ class _ReportsViewState extends State<ReportsView>
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: Color.fromRGBO(color.red, color.green, color.blue, 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: Color.fromRGBO(color.red, color.green, color.blue, 0.3)),
       ),
       child: Row(
         children: [

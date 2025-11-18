@@ -263,9 +263,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: Color.fromRGBO(color.red, color.green, color.blue, 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: Color.fromRGBO(color.red, color.green, color.blue, 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,12 +318,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.grey[300]!),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Color.fromRGBO(158, 158, 158, 0.1),
                 spreadRadius: 1,
                 blurRadius: 4,
-                offset: const Offset(0, 2),
+                offset: Offset(0, 2),
               ),
             ],
           ),

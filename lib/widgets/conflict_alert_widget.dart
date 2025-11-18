@@ -67,12 +67,12 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                   decoration: BoxDecoration(
                     color: _colorAnimation.value,
                     borderRadius: BorderRadius.circular(25),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color: Colors.red.withOpacity(0.4),
+                        color: Color.fromRGBO(244, 67, 54, 0.4),
                         spreadRadius: 2,
                         blurRadius: 8,
-                        offset: const Offset(0, 3),
+                        offset: Offset(0, 3),
                       ),
                     ],
                   ),

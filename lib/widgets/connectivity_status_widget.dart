@@ -103,7 +103,8 @@ class ConnectivityBanner extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(
+                    color: Color.fromRGBO(
+                      255, 255, 255,
                       status == ConnectionStatus.connecting ? 0.1 : 0.2,
                     ),
                     borderRadius: BorderRadius.circular(12),
@@ -113,7 +114,8 @@ class ConnectivityBanner extends StatelessWidget {
                         ? 'Verificando...'
                         : 'Reintentar',
                     style: TextStyle(
-                      color: Colors.white.withOpacity(
+                      color: Color.fromRGBO(
+                        255, 255, 255,
                         status == ConnectionStatus.connecting ? 0.7 : 1.0,
                       ),
                       fontSize: 12,

@@ -230,9 +230,9 @@ class _OfflineManagementViewState extends State<OfflineManagementView> {
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: Color.fromRGBO(color.red, color.green, color.blue, 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: Color.fromRGBO(color.red, color.green, color.blue, 0.3)),
       ),
       child: Column(
         children: [
