@@ -9,9 +9,6 @@ import '../services/nfc_service.dart';
 import '../services/autorizacion_service.dart';
 import '../services/offline_service.dart';
 
-// Permitir prints para debugging
-// ignore_for_file: avoid_print
-
 class NfcViewModel extends ChangeNotifier {
   final ApiService _apiService = ApiService();
   final NfcService _nfcService = NfcService();
@@ -79,8 +76,8 @@ class NfcViewModel extends ChangeNotifier {
     _scannedAlumno = null;
 
     try {
-      print('🚀 Iniciando escaneo NFC continuo...');
-      print('👮 Guardia configurado: $_guardiaNombre (ID: $_guardiaId)');
+      // print('🚀 Iniciando escaneo NFC continuo...');
+      // print('👮 Guardia configurado: $_guardiaNombre (ID: $_guardiaId)');
 
       // Verificar NFC disponible
       final bool available = await _nfcService.isNfcAvailable();
@@ -94,7 +91,7 @@ class NfcViewModel extends ChangeNotifier {
       await _startContinuousScanning();
     } catch (e) {
       final String errorMsg = e.toString().replaceAll('Exception: ', '');
-      print('❌ Error en escaneo: $errorMsg');
+      // print('❌ Error en escaneo: $errorMsg');
       _setError('❌ $errorMsg');
       _setScanning(false);
     }
@@ -104,7 +101,7 @@ class NfcViewModel extends ChangeNotifier {
   Future<void> _startContinuousScanning() async {
     while (_isScanning) {
       try {
-        print('📡 Esperando próxima pulsera...');
+        // print('📡 Esperando próxima pulsera...');
 
         // Leer pulsera con timeout corto
         final String codigoUniversitario = await _nfcService.readNfcWithResult();
@@ -127,7 +124,7 @@ class NfcViewModel extends ChangeNotifier {
       } catch (e) {
         if (_isScanning) {
           // Si hay error, seguir intentando
-          print('⚠️ Error en lectura continua: $e');
+          // print('⚠️ Error en lectura continua: $e');
           await Future.delayed(const Duration(milliseconds: 500));
         }
       }
@@ -142,17 +139,17 @@ class NfcViewModel extends ChangeNotifier {
     _clearMessages();
 
     try {
-      print('🔄 Iniciando lectura NFC inmediata...');
+      // print('🔄 Iniciando lectura NFC inmediata...');
 
       // Intentar lectura con resultado visible
       final String codigoUniversitario = await _nfcService.readNfcWithResult();
 
-      print('✅ Código leído: $codigoUniversitario');
+      // print('✅ Código leído: $codigoUniversitario');
 
       // Procesar la detección
       await _processingleDetection(codigoUniversitario);
     } catch (e) {
-      print('❌ Error en lectura inmediata: $e');
+      // print('❌ Error en lectura inmediata: $e');
       _setError(
         'Error al leer NFC: ${e.toString().replaceAll('Exception: ', '')}',
       );
@@ -376,7 +373,7 @@ class NfcViewModel extends ChangeNotifier {
       _debugLogs.removeRange(maxLogs, _debugLogs.length);
     }
 
-    print(logMessage); // También imprimir en consola
+    // print(logMessage); // También imprimir en consola
     notifyListeners();
   }
 

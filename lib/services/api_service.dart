@@ -10,9 +10,6 @@ import '../models/decision_manual_model.dart';
 import '../models/presencia_model.dart';
 import '../config/api_config.dart';
 
-// Permitir prints para debugging
-// ignore_for_file: avoid_print
-
 class ApiService {
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;
