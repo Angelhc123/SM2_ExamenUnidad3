@@ -76,6 +76,9 @@ El archivo `quality-check.yml` contiene el workflow principal que ejecuta:
 <!-- Captura de pantalla: Continuación del contenido de quality-check.yml -->
 ![Contenido quality-check.yml - Parte 2](assets/quality-check-2.png)
 
+<!-- Captura de pantalla: Continuación del contenido de quality-check.yml -->
+![Contenido quality-check.yml - Parte 3](assets/quality-check-3.png)
+
 ---
 
 ## 3. Contenido del Archivo `autograding.yml`
@@ -93,7 +96,14 @@ El archivo `autograding.yml` implementa un sistema de autoevaluación con tests 
 **Total:** 13 pruebas unitarias organizadas en 5 grupos
 
 <!-- Captura de pantalla: Contenido del archivo autograding.yml -->
-![Contenido autograding.yml](assets/autograding.png)
+![Contenido autograding.yml - Parte 1](assets/autograding-1.png)
+
+<!-- Captura de pantalla: Contenido del archivo autograding.yml -->
+![Contenido autograding.yml - Parte 2](assets/autograding-2.png)
+
+<!-- Captura de pantalla: Contenido del archivo autograding.yml -->
+![Contenido autograding.yml - Parte 3](assets/autograding-3.png)
+
 
 ---
 
@@ -128,7 +138,19 @@ Las pruebas unitarias están organizadas en grupos separados para mejor visualiz
 ```
 
 <!-- Captura de pantalla: Código de las pruebas unitarias en main_test.dart -->
-![Código de pruebas unitarias](assets/tests-code.png)
+![Código de pruebas unitarias - Parte 1 (TEST 1: AlumnoModel)](assets/tests-code-1.png)
+
+<!-- Captura de pantalla: Continuación del código de pruebas - TEST 2 -->
+![Código de pruebas unitarias - Parte 2 (TEST 2: UsuarioModel)](assets/tests-code-2.png)
+
+<!-- Captura de pantalla: Continuación del código de pruebas - TEST 3 -->
+![Código de pruebas unitarias - Parte 3 (TEST 3: AsistenciaModel)](assets/tests-code-3.png)
+
+<!-- Captura de pantalla: Continuación del código de pruebas - TEST 4 -->
+![Código de pruebas unitarias - Parte 4 (TEST 4: PresenciaModel)](assets/tests-code-4.png)
+
+<!-- Captura de pantalla: Continuación del código de pruebas - TEST 5 -->
+![Código de pruebas unitarias - Parte 5 (TEST 5: Configuración API)](assets/tests-code-5.png)
 
 ---
 
