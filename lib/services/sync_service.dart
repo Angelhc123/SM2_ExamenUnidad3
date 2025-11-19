@@ -863,16 +863,15 @@ class SyncService extends ChangeNotifier {
       };
 
       // Backup de datos locales (asistencias pendientes, etc.)
-      final localKeys =
-          prefs
-              .getKeys()
-              .where(
-                (key) =>
-                    key.startsWith('asistencia_') ||
-                    key.startsWith('alumno_') ||
-                    key.startsWith('pending_'),
-              )
-              .toList();
+      final localKeys = prefs
+          .getKeys()
+          .where(
+            (key) =>
+                key.startsWith('asistencia_') ||
+                key.startsWith('alumno_') ||
+                key.startsWith('pending_'),
+          )
+          .toList();
 
       for (String key in localKeys) {
         final value = prefs.getString(key);
@@ -907,8 +906,7 @@ class SyncService extends ChangeNotifier {
         _lastBackupTime!.toIso8601String(),
       );
 
-      final dataCount =
-          backupData['data']['asistencias'].length +
+      final dataCount = backupData['data']['asistencias'].length +
           backupData['data']['alumnos'].length;
 
       _addLogEntry('✅ Backup completado: $dataCount registros guardados');
@@ -966,8 +964,7 @@ class SyncService extends ChangeNotifier {
               'key': key,
               'timestamp': timestamp,
               'size': backupJson.length,
-              'data_count':
-                  (backupData['data']['asistencias']?.length ?? 0) +
+              'data_count': (backupData['data']['asistencias']?.length ?? 0) +
                   (backupData['data']['alumnos']?.length ?? 0),
             });
           } catch (e) {

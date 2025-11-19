@@ -124,15 +124,12 @@ class NfcService {
       }
 
       // Método 3: Fallback - usar ID del tag directamente
-      final String cleanId = tagId
-          .toLowerCase()
-          .replaceAll(' ', '')
-          .replaceAll(':', '');
+      final String cleanId =
+          tagId.toLowerCase().replaceAll(' ', '').replaceAll(':', '');
       if (cleanId.length >= 6) {
-        final String codigo =
-            cleanId.length > 8
-                ? cleanId.substring(cleanId.length - 8)
-                : cleanId;
+        final String codigo = cleanId.length > 8
+            ? cleanId.substring(cleanId.length - 8)
+            : cleanId;
         // print('✅ Usando ID limpio como código: $codigo');
         return codigo;
       }

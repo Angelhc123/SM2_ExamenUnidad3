@@ -40,19 +40,17 @@ class PresenciaModel {
       facultad: json['facultad'] ?? '',
       escuela: json['escuela'] ?? '',
       horaEntrada: DateTime.parse(json['hora_entrada']),
-      horaSalida:
-          json['hora_salida'] != null
-              ? DateTime.parse(json['hora_salida'])
-              : null,
+      horaSalida: json['hora_salida'] != null
+          ? DateTime.parse(json['hora_salida'])
+          : null,
       puntoEntrada: json['punto_entrada'] ?? '',
       puntoSalida: json['punto_salida'],
       estaDentro: json['esta_dentro'] ?? true,
       guardiaEntrada: json['guardia_entrada'] ?? '',
       guardiaSalida: json['guardia_salida'],
-      tiempoEnCampus:
-          json['tiempo_en_campus'] != null
-              ? Duration(milliseconds: json['tiempo_en_campus'])
-              : null,
+      tiempoEnCampus: json['tiempo_en_campus'] != null
+          ? Duration(milliseconds: json['tiempo_en_campus'])
+          : null,
     );
   }
 

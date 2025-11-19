@@ -30,32 +30,31 @@ class _AdminViewState extends State<AdminView> {
   void _handleLogout() {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Cerrar Sesión'),
-            content: const Text('¿Está seguro de que desea cerrar sesión?'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancelar'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  final authViewModel = Provider.of<AuthViewModel>(
-                    context,
-                    listen: false,
-                  );
-                  authViewModel.logout();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginView()),
-                  );
-                },
-                child: const Text('Cerrar Sesión'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Cerrar Sesión'),
+        content: const Text('¿Está seguro de que desea cerrar sesión?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
           ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              final authViewModel = Provider.of<AuthViewModel>(
+                context,
+                listen: false,
+              );
+              authViewModel.logout();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginView()),
+              );
+            },
+            child: const Text('Cerrar Sesión'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -75,32 +74,31 @@ class _AdminViewState extends State<AdminView> {
                     _handleLogout();
                   }
                 },
-                itemBuilder:
-                    (context) => [
-                      PopupMenuItem(
-                        value: 'profile',
-                        child: ListTile(
-                          leading: const Icon(Icons.admin_panel_settings),
-                          title: const Text('Administrador'),
-                          subtitle: Text(
-                            authViewModel.currentUser?.nombreCompleto ?? '',
-                          ),
-                          contentPadding: EdgeInsets.zero,
-                        ),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: 'profile',
+                    child: ListTile(
+                      leading: const Icon(Icons.admin_panel_settings),
+                      title: const Text('Administrador'),
+                      subtitle: Text(
+                        authViewModel.currentUser?.nombreCompleto ?? '',
                       ),
-                      const PopupMenuDivider(),
-                      const PopupMenuItem(
-                        value: 'logout',
-                        child: ListTile(
-                          leading: Icon(Icons.logout, color: Colors.red),
-                          title: Text(
-                            'Cerrar Sesión',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          contentPadding: EdgeInsets.zero,
-                        ),
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                  ),
+                  const PopupMenuDivider(),
+                  const PopupMenuItem(
+                    value: 'logout',
+                    child: ListTile(
+                      leading: Icon(Icons.logout, color: Colors.red),
+                      title: Text(
+                        'Cerrar Sesión',
+                        style: TextStyle(color: Colors.red),
                       ),
-                    ],
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                  ),
+                ],
               );
             },
           ),
@@ -459,7 +457,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SyncConfigView()),
+                    MaterialPageRoute(
+                        builder: (context) => const SyncConfigView()),
                   );
                 },
               ),
@@ -478,17 +477,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder:
-                          (context) => Consumer<AuthViewModel>(
-                            builder: (context, authViewModel, child) {
-                              return SessionManagementView(
-                                adminId: authViewModel.currentUser?.id ?? '',
-                                adminName:
-                                    authViewModel.currentUser?.nombreCompleto ??
+                      builder: (context) => Consumer<AuthViewModel>(
+                        builder: (context, authViewModel, child) {
+                          return SessionManagementView(
+                            adminId: authViewModel.currentUser?.id ?? '',
+                            adminName:
+                                authViewModel.currentUser?.nombreCompleto ??
                                     'Admin',
-                              );
-                            },
-                          ),
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
@@ -503,7 +501,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HistorialView()),
+                    MaterialPageRoute(
+                        builder: (context) => const HistorialView()),
                   );
                 },
               ),

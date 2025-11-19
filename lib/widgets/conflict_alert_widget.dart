@@ -63,7 +63,8 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
                 onTap: () => _showConflictDialog(context, sessionService),
                 child: Container(
                   margin: const EdgeInsets.all(8),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
                     color: _colorAnimation.value,
                     borderRadius: BorderRadius.circular(25),
@@ -117,95 +118,93 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: Row(
+          children: [
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.orange,
+              size: 28,
             ),
-            title: Row(
-              children: [
-                const Icon(
-                  Icons.warning_amber_rounded,
-                  color: Colors.orange,
-                  size: 28,
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Conflicto de Sesión',
+                style: TextStyle(
+                  color: Colors.red[700],
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Conflicto de Sesión',
-                    style: TextStyle(
-                      color: Colors.red[700],
-                      fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.red[50],
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red[200]!),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Otro guardia está activo en este punto:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '📍 Punto: ${conflictData?['active_guard']?['punto_control'] ?? 'Desconocido'}',
+                  ),
+                  Text(
+                    '👤 Guardia: ${conflictData?['active_guard']?['guardia_nombre'] ?? 'Desconocido'}',
+                  ),
+                  if (conflictData?['active_guard']?['session_start'] != null)
+                    Text(
+                      '⏰ Sesión iniciada: ${_formatDateTime(conflictData!['active_guard']['session_start'])}',
                     ),
-                  ),
-                ),
-              ],
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.red[50],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.red[200]!),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Otro guardia está activo en este punto:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        '📍 Punto: ${conflictData?['active_guard']?['punto_control'] ?? 'Desconocido'}',
-                      ),
-                      Text(
-                        '👤 Guardia: ${conflictData?['active_guard']?['guardia_nombre'] ?? 'Desconocido'}',
-                      ),
-                      if (conflictData?['active_guard']?['session_start'] !=
-                          null)
-                        Text(
-                          '⏰ Sesión iniciada: ${_formatDateTime(conflictData!['active_guard']['session_start'])}',
-                        ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  '¿Qué desea hacer?',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  sessionService.cancelSession();
-                },
-                child: Text(
-                  'Cancelar mi Sesión',
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
+                ],
               ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleTakeControl(context, sessionService);
-                },
-                icon: const Icon(Icons.swap_horiz, size: 18),
-                label: const Text('Tomar Control'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  foregroundColor: Colors.white,
-                ),
-              ),
-            ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              '¿Qué desea hacer?',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              sessionService.cancelSession();
+            },
+            child: Text(
+              'Cancelar mi Sesión',
+              style: TextStyle(color: Colors.grey[600]),
+            ),
           ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.pop(context);
+              _handleTakeControl(context, sessionService);
+            },
+            icon: const Icon(Icons.swap_horiz, size: 18),
+            label: const Text('Tomar Control'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange,
+              foregroundColor: Colors.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -215,46 +214,45 @@ class _ConflictAlertWidgetState extends State<ConflictAlertWidget>
   ) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Row(
-              children: [
-                Icon(Icons.security, color: Colors.orange),
-                SizedBox(width: 8),
-                Text('Confirmar Acción'),
-              ],
-            ),
-            content: const Text(
-              '¿Está seguro de que desea tomar control de este punto? '
-              'Esto finalizará la sesión del otro guardia.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancelar'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.pop(context);
-                  await sessionService.forceSessionTakeover();
-
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('✅ Sesión tomada exitosamente'),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('Tomar Control'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.security, color: Colors.orange),
+            SizedBox(width: 8),
+            Text('Confirmar Acción'),
+          ],
+        ),
+        content: const Text(
+          '¿Está seguro de que desea tomar control de este punto? '
+          'Esto finalizará la sesión del otro guardia.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              await sessionService.forceSessionTakeover();
+
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('✅ Sesión tomada exitosamente'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Tomar Control'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -324,59 +322,58 @@ class AppBarConflictIndicator extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder:
-          (context) => DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            maxChildSize: 0.7,
-            minChildSize: 0.3,
-            expand: false,
-            builder: (context, scrollController) {
-              return Container(
-                padding: const EdgeInsets.all(16),
-                child: Column(
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.4,
+        maxChildSize: 0.7,
+        minChildSize: 0.3,
+        expand: false,
+        builder: (context, scrollController) {
+          return Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Row(
                   children: [
-                    Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(2),
-                      ),
+                    Icon(
+                      Icons.warning_amber,
+                      color: Colors.orange,
+                      size: 28,
                     ),
-                    const SizedBox(height: 16),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.warning_amber,
-                          color: Colors.orange,
-                          size: 28,
-                        ),
-                        SizedBox(width: 12),
-                        Text(
-                          'Conflicto de Sesión Detectado',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Expanded(
-                      child: ListView(
-                        controller: scrollController,
-                        children: [
-                          _buildConflictDetailCard(sessionService),
-                          const SizedBox(height: 20),
-                          _buildActionButtons(context, sessionService),
-                        ],
+                    SizedBox(width: 12),
+                    Text(
+                      'Conflicto de Sesión Detectado',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-              );
-            },
-          ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView(
+                    controller: scrollController,
+                    children: [
+                      _buildConflictDetailCard(sessionService),
+                      const SizedBox(height: 20),
+                      _buildActionButtons(context, sessionService),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

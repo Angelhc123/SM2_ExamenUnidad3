@@ -41,7 +41,8 @@ class ErrorWidget extends StatelessWidget {
   final VoidCallback? onRetry;
   final IconData? icon;
 
-  const ErrorWidget({super.key, required this.message, this.onRetry, this.icon});
+  const ErrorWidget(
+      {super.key, required this.message, this.onRetry, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,8 @@ class ErrorWidget extends StatelessWidget {
             ),
             if (onRetry != null) ...[
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: onRetry, child: const Text('Reintentar')),
+              ElevatedButton(
+                  onPressed: onRetry, child: const Text('Reintentar')),
             ],
           ],
         ),

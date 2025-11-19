@@ -54,12 +54,11 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => ConflictResolutionDialog(
-            conflictData: result.conflictData!,
-            onResolve: _resolverConflicto,
-            onCancel: () => Navigator.of(context).pop(),
-          ),
+      builder: (context) => ConflictResolutionDialog(
+        conflictData: result.conflictData!,
+        onResolve: _resolverConflicto,
+        onCancel: () => Navigator.of(context).pop(),
+      ),
     );
   }
 
@@ -144,7 +143,8 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
               ),
             ),
             if (widget.guardiaId != null)
-              TextButton(onPressed: _iniciarSesion, child: const Text('Reintentar')),
+              TextButton(
+                  onPressed: _iniciarSesion, child: const Text('Reintentar')),
           ],
         ),
       );
@@ -292,52 +292,51 @@ class _SessionStatusWidgetState extends State<SessionStatusWidget> {
   void _mostrarDetallesSesion(SessionGuardService sessionService) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Detalles de Sesión'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildDetalle('Token', sessionService.sessionToken ?? 'N/A'),
-                _buildDetalle('Guardia', sessionService.guardiaNombre ?? 'N/A'),
-                _buildDetalle(
-                  'Punto Control',
-                  sessionService.puntoControl ?? 'N/A',
-                ),
-                _buildDetalle(
-                  'Inicio',
-                  sessionService.sessionStartTime?.toString() ?? 'N/A',
-                ),
-                _buildDetalle(
-                  'Duración',
-                  sessionService.tiempoSesion != null
-                      ? _formatearTiempo(sessionService.tiempoSesion!)
-                      : 'N/A',
-                ),
-              ],
+      builder: (context) => AlertDialog(
+        title: const Text('Detalles de Sesión'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDetalle('Token', sessionService.sessionToken ?? 'N/A'),
+            _buildDetalle('Guardia', sessionService.guardiaNombre ?? 'N/A'),
+            _buildDetalle(
+              'Punto Control',
+              sessionService.puntoControl ?? 'N/A',
             ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cerrar'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  final success = await sessionService.finalizarSesion();
-                  if (success) {
-                    _mostrarMensaje('Sesión finalizada', Colors.blue);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('Finalizar Sesión'),
-              ),
-            ],
+            _buildDetalle(
+              'Inicio',
+              sessionService.sessionStartTime?.toString() ?? 'N/A',
+            ),
+            _buildDetalle(
+              'Duración',
+              sessionService.tiempoSesion != null
+                  ? _formatearTiempo(sessionService.tiempoSesion!)
+                  : 'N/A',
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cerrar'),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              final success = await sessionService.finalizarSesion();
+              if (success) {
+                _mostrarMensaje('Sesión finalizada', Colors.blue);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Finalizar Sesión'),
+          ),
+        ],
+      ),
     );
   }
 

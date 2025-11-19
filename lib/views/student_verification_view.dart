@@ -151,8 +151,8 @@ class _StudentVerificationViewState extends State<StudentVerificationView>
               child: const Text('Cancelar'),
             ),
             ElevatedButton(
-              onPressed:
-                  () => Navigator.pop(context, _razonController.text.trim()),
+              onPressed: () =>
+                  Navigator.pop(context, _razonController.text.trim()),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               child: const Text(
                 'Denegar',
@@ -173,35 +173,34 @@ class _StudentVerificationViewState extends State<StudentVerificationView>
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(icono, size: 64, color: color),
-                const SizedBox(height: 16),
-                Text(
-                  mensaje,
-                  style: GoogleFonts.lato(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(widget.estudiante.nombreCompleto),
-              ],
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // Cerrar diálogo
-                  Navigator.pop(context); // Volver a scanner
-                },
-                child: const Text('Continuar'),
+      builder: (context) => AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icono, size: 64, color: color),
+            const SizedBox(height: 16),
+            Text(
+              mensaje,
+              style: GoogleFonts.lato(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: color,
               ),
-            ],
+            ),
+            const SizedBox(height: 8),
+            Text(widget.estudiante.nombreCompleto),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); // Cerrar diálogo
+              Navigator.pop(context); // Volver a scanner
+            },
+            child: const Text('Continuar'),
           ),
+        ],
+      ),
     );
   }
 
@@ -347,10 +346,9 @@ class _StudentVerificationViewState extends State<StudentVerificationView>
                                 ? Icons.check_circle
                                 : Icons.cancel,
                             size: 16,
-                            color:
-                                widget.estudiante.isActive
-                                    ? Colors.green
-                                    : Colors.red,
+                            color: widget.estudiante.isActive
+                                ? Colors.green
+                                : Colors.red,
                           ),
                           const SizedBox(width: 4),
                           Text(
@@ -358,10 +356,9 @@ class _StudentVerificationViewState extends State<StudentVerificationView>
                             style: GoogleFonts.lato(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color:
-                                  widget.estudiante.isActive
-                                      ? Colors.green
-                                      : Colors.red,
+                              color: widget.estudiante.isActive
+                                  ? Colors.green
+                                  : Colors.red,
                             ),
                           ),
                         ],
@@ -452,14 +449,13 @@ class _StudentVerificationViewState extends State<StudentVerificationView>
               ),
               elevation: 4,
             ),
-            icon:
-                _isProcessing
-                    ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                    : const Icon(Icons.cancel, size: 24),
+            icon: _isProcessing
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.cancel, size: 24),
             label: Text(
               'DENEGAR',
               style: GoogleFonts.lato(
@@ -482,14 +478,13 @@ class _StudentVerificationViewState extends State<StudentVerificationView>
               ),
               elevation: 4,
             ),
-            icon:
-                _isProcessing
-                    ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                    : const Icon(Icons.check_circle, size: 24),
+            icon: _isProcessing
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.check_circle, size: 24),
             label: Text(
               'AUTORIZAR',
               style: GoogleFonts.lato(

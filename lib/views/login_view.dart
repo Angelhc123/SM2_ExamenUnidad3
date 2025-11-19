@@ -126,9 +126,8 @@ class _LoginViewState extends State<LoginView> {
                               ? Icons.visibility
                               : Icons.visibility_off,
                         ),
-                        onPressed:
-                            () =>
-                                setState(() => _showPassword = !_showPassword),
+                        onPressed: () =>
+                            setState(() => _showPassword = !_showPassword),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {

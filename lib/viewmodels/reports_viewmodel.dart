@@ -135,9 +135,8 @@ class ReportsViewModel extends ChangeNotifier {
           (asistenciasPorFacultad[asistencia.siglasFacultad] ?? 0) + 1;
     }
 
-    final sorted =
-        asistenciasPorFacultad.entries.toList()
-          ..sort((a, b) => b.value.compareTo(a.value));
+    final sorted = asistenciasPorFacultad.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
 
     return sorted.take(limit).toList();
   }

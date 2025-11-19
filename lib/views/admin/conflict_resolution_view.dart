@@ -128,10 +128,9 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
                     CustomButton(
                       text: 'Aplicar Resoluciones',
                       width: double.infinity,
-                      onPressed:
-                          _resolutions.length == widget.conflicts.length
-                              ? _applyResolutions
-                              : null,
+                      onPressed: _resolutions.length == widget.conflicts.length
+                          ? _applyResolutions
+                          : null,
                       isLoading: syncService.isLoading,
                     ),
                   ],
@@ -160,7 +159,8 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
                 Expanded(
                   child: Text(
                     '${conflict.collection} - ${conflict.id}',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),
                 Chip(
@@ -310,20 +310,21 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
           ),
           value: ConflictResolution.serverWins,
           groupValue: _resolutions[conflict.id],
-          onChanged:
-              (value) => setState(() => _resolutions[conflict.id] = value!),
+          onChanged: (value) =>
+              setState(() => _resolutions[conflict.id] = value!),
           dense: true,
         ),
         RadioListTile<ConflictResolution>(
-          title: const Text('Usar datos locales', style: TextStyle(fontSize: 14)),
+          title:
+              const Text('Usar datos locales', style: TextStyle(fontSize: 14)),
           subtitle: const Text(
             'Los datos locales sobrescribirán los remotos',
             style: TextStyle(fontSize: 12),
           ),
           value: ConflictResolution.clientWins,
           groupValue: _resolutions[conflict.id],
-          onChanged:
-              (value) => setState(() => _resolutions[conflict.id] = value!),
+          onChanged: (value) =>
+              setState(() => _resolutions[conflict.id] = value!),
           dense: true,
         ),
         RadioListTile<ConflictResolution>(
@@ -334,8 +335,8 @@ class _ConflictResolutionViewState extends State<ConflictResolutionView> {
           ),
           value: ConflictResolution.merge,
           groupValue: _resolutions[conflict.id],
-          onChanged:
-              (value) => setState(() => _resolutions[conflict.id] = value!),
+          onChanged: (value) =>
+              setState(() => _resolutions[conflict.id] = value!),
           dense: true,
         ),
       ],

@@ -104,7 +104,8 @@ class NfcViewModel extends ChangeNotifier {
         // print('📡 Esperando próxima pulsera...');
 
         // Leer pulsera con timeout corto
-        final String codigoUniversitario = await _nfcService.readNfcWithResult();
+        final String codigoUniversitario =
+            await _nfcService.readNfcWithResult();
 
         if (_isScanning) {
           // Verificar que aún estamos escaneando
@@ -215,10 +216,9 @@ class NfcViewModel extends ChangeNotifier {
 
       addLog('   Guardia: $_guardiaNombre ($_guardiaId)');
 
-
-
       // GENERAR MÚLTIPLES VARIANTES DEL CÓDIGO Y PROBAR CADA UNA
-      final List<String> variantes = _generarVariantesCodigoHex(codigoUniversitario);
+      final List<String> variantes =
+          _generarVariantesCodigoHex(codigoUniversitario);
 
       AlumnoModel? alumno;
 

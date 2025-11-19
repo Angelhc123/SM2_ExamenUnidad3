@@ -714,7 +714,9 @@ class ApiService {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final List<dynamic> asistencias = data['asistencias'];
-        return asistencias.map((json) => AsistenciaModel.fromJson(json)).toList();
+        return asistencias
+            .map((json) => AsistenciaModel.fromJson(json))
+            .toList();
       } else {
         throw Exception('Error al obtener asistencias: ${response.statusCode}');
       }

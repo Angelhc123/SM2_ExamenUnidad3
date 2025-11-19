@@ -216,7 +216,8 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.help_outline, color: Colors.blue),
+                              const Icon(Icons.help_outline,
+                                  color: Colors.blue),
                               const SizedBox(width: 8),
                               Text(
                                 'Información',
@@ -274,10 +275,9 @@ class _SessionConfigViewState extends State<SessionConfigView> {
                       Expanded(
                         child: CustomButton(
                           text: 'Guardar',
-                          onPressed:
-                              authViewModel.isLoading
-                                  ? null
-                                  : _saveConfiguration,
+                          onPressed: authViewModel.isLoading
+                              ? null
+                              : _saveConfiguration,
                           isLoading: authViewModel.isLoading,
                         ),
                       ),

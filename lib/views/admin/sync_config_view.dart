@@ -35,7 +35,8 @@ class _SyncConfigViewState extends State<SyncConfigView> {
               await SyncService().performSync();
               if (mounted) {
                 messenger.showSnackBar(
-                  const SnackBar(content: Text('Sincronización manual iniciada')),
+                  const SnackBar(
+                      content: Text('Sincronización manual iniciada')),
                 );
               }
             },
@@ -87,12 +88,11 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                   syncService.isSyncing
                       ? Icons.sync
                       : syncService.autoSyncEnabled
-                      ? Icons.sync_alt
-                      : Icons.sync_disabled,
-                  color:
-                      syncService.isSyncing
-                          ? Colors.blue
-                          : syncService.autoSyncEnabled
+                          ? Icons.sync_alt
+                          : Icons.sync_disabled,
+                  color: syncService.isSyncing
+                      ? Colors.blue
+                      : syncService.autoSyncEnabled
                           ? Colors.green
                           : Colors.red,
                 ),
@@ -104,25 +104,21 @@ class _SyncConfigViewState extends State<SyncConfigView> {
               ],
             ),
             const SizedBox(height: 12),
-
             _buildStatusRow(
               'Estado actual',
               syncService.isSyncing ? 'Sincronizando...' : 'En reposo',
               syncService.isSyncing ? Colors.blue : Colors.green,
             ),
-
             _buildStatusRow(
               'Sincronización automática',
               syncService.autoSyncEnabled ? 'Activada' : 'Desactivada',
               syncService.autoSyncEnabled ? Colors.green : Colors.red,
             ),
-
             _buildStatusRow(
               'Última sincronización',
               syncService.getLastSyncStatus(),
               Colors.grey[700]!,
             ),
-
             if (syncService.autoSyncEnabled &&
                 syncService.getTimeToNextSync() != null)
               _buildStatusRow(
@@ -130,7 +126,6 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                 _formatDuration(syncService.getTimeToNextSync()!),
                 Colors.blue,
               ),
-
             if (syncService.syncError != null)
               Container(
                 width: double.infinity,
@@ -193,14 +188,13 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                 onSelected: (minutes) {
                   syncService.configureSyncInterval(minutes);
                 },
-                itemBuilder:
-                    (context) => [
-                      const PopupMenuItem(value: 15, child: Text('15 minutos')),
-                      const PopupMenuItem(value: 30, child: Text('30 minutos')),
-                      const PopupMenuItem(value: 60, child: Text('1 hora')),
-                      const PopupMenuItem(value: 120, child: Text('2 horas')),
-                      const PopupMenuItem(value: 240, child: Text('4 horas')),
-                    ],
+                itemBuilder: (context) => [
+                  const PopupMenuItem(value: 15, child: Text('15 minutos')),
+                  const PopupMenuItem(value: 30, child: Text('30 minutos')),
+                  const PopupMenuItem(value: 60, child: Text('1 hora')),
+                  const PopupMenuItem(value: 120, child: Text('2 horas')),
+                  const PopupMenuItem(value: 240, child: Text('4 horas')),
+                ],
                 child: const Icon(Icons.more_vert),
               ),
             ),
@@ -222,7 +216,6 @@ class _SyncConfigViewState extends State<SyncConfigView> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-
             Row(
               children: [
                 Expanded(
@@ -230,25 +223,25 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                     text: 'Sincronizar Ahora',
                     icon: Icons.sync,
                     isLoading: syncService.isSyncing,
-                    onPressed:
-                        syncService.isSyncing
-                            ? null
-                            : () async {
-                              final bool success = await syncService.performSync();
-                              if (mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      success
-                                          ? '✅ Sincronización completada'
-                                          : '❌ Error en la sincronización',
-                                    ),
-                                    backgroundColor:
-                                        success ? Colors.green : Colors.red,
+                    onPressed: syncService.isSyncing
+                        ? null
+                        : () async {
+                            final bool success =
+                                await syncService.performSync();
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    success
+                                        ? '✅ Sincronización completada'
+                                        : '❌ Error en la sincronización',
                                   ),
-                                );
-                              }
-                            },
+                                  backgroundColor:
+                                      success ? Colors.green : Colors.red,
+                                ),
+                              );
+                            }
+                          },
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -293,7 +286,6 @@ class _SyncConfigViewState extends State<SyncConfigView> {
               ],
             ),
             const SizedBox(height: 12),
-
             Container(
               height: 200,
               decoration: BoxDecoration(
@@ -301,31 +293,30 @@ class _SyncConfigViewState extends State<SyncConfigView> {
                 border: Border.all(color: Colors.grey[300]!),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child:
-                  syncService.syncLog.isEmpty
-                      ? Center(
-                        child: Text(
-                          'Sin entradas en el log',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
-                      )
-                      : ListView.builder(
-                        padding: const EdgeInsets.all(8),
-                        itemCount: syncService.syncLog.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
-                            child: Text(
-                              syncService.syncLog[index],
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                          );
-                        },
+              child: syncService.syncLog.isEmpty
+                  ? Center(
+                      child: Text(
+                        'Sin entradas en el log',
+                        style: TextStyle(color: Colors.grey[600]),
                       ),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: syncService.syncLog.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: Text(
+                            syncService.syncLog[index],
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),

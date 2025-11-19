@@ -667,7 +667,8 @@ class _UserNfcViewState extends State<UserNfcView> with WidgetsBindingObserver {
                 GestureDetector(
                   onTap: () => nfcViewModel.clearLogs(),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.red[700],
                       borderRadius: BorderRadius.circular(4),

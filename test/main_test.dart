@@ -213,7 +213,8 @@ void main() {
     });
 
     test('T4.3: PresenciaModel debe calcular tiempo en campus', () {
-      final horaEntrada = DateTime.now().subtract(const Duration(hours: 3, minutes: 30));
+      final horaEntrada =
+          DateTime.now().subtract(const Duration(hours: 3, minutes: 30));
       final presencia = PresenciaModel(
         id: 'pres003',
         estudianteId: 'alumno789',
@@ -242,7 +243,8 @@ void main() {
 
       expect(baseUrl, isNotEmpty);
       expect(baseUrl.startsWith('http'), true);
-      expect(baseUrl.contains('railway.app') || baseUrl.contains('192.168'), true);
+      expect(
+          baseUrl.contains('railway.app') || baseUrl.contains('192.168'), true);
     });
 
     test('T5.2: ApiConfig debe generar endpoints correctos', () {

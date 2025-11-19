@@ -184,8 +184,8 @@ class OfflineService extends ChangeNotifier {
   /// Configurar monitoreo de conectividad
   Future<void> _setupConnectivityMonitoring() async {
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen(
-      _onConnectivityChanged,
-    );
+          _onConnectivityChanged,
+        );
   }
 
   /// Verificar conectividad inicial

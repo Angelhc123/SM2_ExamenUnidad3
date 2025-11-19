@@ -104,7 +104,9 @@ class ConnectivityBanner extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(
-                      255, 255, 255,
+                      255,
+                      255,
+                      255,
                       status == ConnectionStatus.connecting ? 0.1 : 0.2,
                     ),
                     borderRadius: BorderRadius.circular(12),
@@ -115,7 +117,9 @@ class ConnectivityBanner extends StatelessWidget {
                         : 'Reintentar',
                     style: TextStyle(
                       color: Color.fromRGBO(
-                        255, 255, 255,
+                        255,
+                        255,
+                        255,
                         status == ConnectionStatus.connecting ? 0.7 : 1.0,
                       ),
                       fontSize: 12,
@@ -198,16 +202,14 @@ class PendingEventsIndicator extends StatelessWidget {
             margin: const EdgeInsets.all(8),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color:
-                  offlineService.isOnline
-                      ? Colors.blue.shade100
-                      : Colors.orange.shade100,
+              color: offlineService.isOnline
+                  ? Colors.blue.shade100
+                  : Colors.orange.shade100,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color:
-                    offlineService.isOnline
-                        ? Colors.blue.shade300
-                        : Colors.orange.shade300,
+                color: offlineService.isOnline
+                    ? Colors.blue.shade300
+                    : Colors.orange.shade300,
                 width: 1,
               ),
             ),
@@ -217,19 +219,17 @@ class PendingEventsIndicator extends StatelessWidget {
                 Icon(
                   offlineService.isSyncing ? Icons.sync : Icons.cloud_upload,
                   size: 16,
-                  color:
-                      offlineService.isOnline
-                          ? Colors.blue.shade600
-                          : Colors.orange.shade600,
+                  color: offlineService.isOnline
+                      ? Colors.blue.shade600
+                      : Colors.orange.shade600,
                 ),
                 const SizedBox(width: 4),
                 Text(
                   '$pendingCount pendientes',
                   style: TextStyle(
-                    color:
-                        offlineService.isOnline
-                            ? Colors.blue.shade600
-                            : Colors.orange.shade600,
+                    color: offlineService.isOnline
+                        ? Colors.blue.shade600
+                        : Colors.orange.shade600,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),

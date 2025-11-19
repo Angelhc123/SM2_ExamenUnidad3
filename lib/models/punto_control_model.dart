@@ -30,14 +30,12 @@ class PuntoControlModel {
       descripcion: json['descripcion'] ?? '',
       activo: json['activo'] ?? true,
       guardiasAsignados: List<String>.from(json['guardias_asignados'] ?? []),
-      fechaCreacion:
-          json['fecha_creacion'] != null
-              ? DateTime.parse(json['fecha_creacion'])
-              : null,
-      fechaActualizacion:
-          json['fecha_actualizacion'] != null
-              ? DateTime.parse(json['fecha_actualizacion'])
-              : null,
+      fechaCreacion: json['fecha_creacion'] != null
+          ? DateTime.parse(json['fecha_creacion'])
+          : null,
+      fechaActualizacion: json['fecha_actualizacion'] != null
+          ? DateTime.parse(json['fecha_actualizacion'])
+          : null,
     );
   }
 

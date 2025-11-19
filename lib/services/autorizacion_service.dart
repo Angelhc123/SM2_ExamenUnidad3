@@ -102,11 +102,11 @@ class AutorizacionService extends ChangeNotifier {
     try {
       // TEMPORAL: Usar endpoint de todas las asistencias y filtrar por guardia
       final todasAsistencias = await _apiService.getAllAsistencias();
-      
+
       // Filtrar por guardia y últimas 24 horas
       final ahora = DateTime.now();
       final hace24Horas = ahora.subtract(const Duration(hours: 24));
-      
+
       final asistenciasGuardia = todasAsistencias.where((asistencia) {
         final esDelGuardia = asistencia.guardiaId == guardiaId;
         final esReciente = asistencia.fechaHora.isAfter(hace24Horas);

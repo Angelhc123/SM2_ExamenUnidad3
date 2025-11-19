@@ -82,17 +82,16 @@ class _PresenciaDashboardViewState extends State<PresenciaDashboardView>
           ],
         ),
       ),
-      body:
-          _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildPresenciaTab(),
-                  _buildDecisionesTab(),
-                  _buildEstadisticasTab(),
-                ],
-              ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : TabBarView(
+              controller: _tabController,
+              children: [
+                _buildPresenciaTab(),
+                _buildDecisionesTab(),
+                _buildEstadisticasTab(),
+              ],
+            ),
     );
   }
 
@@ -153,33 +152,33 @@ class _PresenciaDashboardViewState extends State<PresenciaDashboardView>
 
               presencias.isEmpty
                   ? SliverFillRemaining(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.people_outline,
-                            size: 64,
-                            color: Colors.grey[400],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'No hay personas en el campus',
-                            style: GoogleFonts.lato(
-                              fontSize: 16,
-                              color: Colors.grey[600],
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.people_outline,
+                              size: 64,
+                              color: Colors.grey[400],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 16),
+                            Text(
+                              'No hay personas en el campus',
+                              style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
+                    )
                   : SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final presencia = presencias[index];
-                      return _buildPresenciaCard(presencia);
-                    }, childCount: presencias.length),
-                  ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final presencia = presencias[index];
+                        return _buildPresenciaCard(presencia);
+                      }, childCount: presencias.length),
+                    ),
             ],
           ),
         );
@@ -210,36 +209,35 @@ class _PresenciaDashboardViewState extends State<PresenciaDashboardView>
                   ),
                 ),
               ),
-
               decisiones.isEmpty
                   ? SliverFillRemaining(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.history,
-                            size: 64,
-                            color: Colors.grey[400],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'No hay decisiones recientes',
-                            style: GoogleFonts.lato(
-                              fontSize: 16,
-                              color: Colors.grey[600],
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.history,
+                              size: 64,
+                              color: Colors.grey[400],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 16),
+                            Text(
+                              'No hay decisiones recientes',
+                              style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
+                    )
                   : SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final decision = decisiones[index];
-                      return _buildDecisionCard(decision);
-                    }, childCount: decisiones.length),
-                  ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final decision = decisiones[index];
+                        return _buildDecisionCard(decision);
+                      }, childCount: decisiones.length),
+                    ),
             ],
           ),
         );
@@ -405,16 +403,14 @@ class _PresenciaDashboardViewState extends State<PresenciaDashboardView>
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor:
-              presencia.llevaVariasHoras
-                  ? Colors.orange[100]
-                  : Colors.green[100],
+          backgroundColor: presencia.llevaVariasHoras
+              ? Colors.orange[100]
+              : Colors.green[100],
           child: Icon(
             Icons.person,
-            color:
-                presencia.llevaVariasHoras
-                    ? Colors.orange[700]
-                    : Colors.green[700],
+            color: presencia.llevaVariasHoras
+                ? Colors.orange[700]
+                : Colors.green[700],
           ),
         ),
         title: Text(presencia.estudianteNombre),

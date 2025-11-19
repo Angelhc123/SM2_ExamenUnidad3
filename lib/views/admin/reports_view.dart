@@ -220,36 +220,34 @@ class _ReportsViewState extends State<ReportsView>
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            ...topFacultades
-                .map(
-                  (entry) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(child: Text(entry.key)),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.blue[100],
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            '${entry.value}',
-                            style: TextStyle(
-                              color: Colors.blue[700],
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+            ...topFacultades.map(
+              (entry) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(child: Text(entry.key)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '${entry.value}',
+                        style: TextStyle(
+                          color: Colors.blue[700],
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                )
-                ,
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -278,16 +276,14 @@ class _ReportsViewState extends State<ReportsView>
                 itemBuilder: (context, index) {
                   final hora = index;
                   final asistencias = asistenciasPorHora[hora] ?? 0;
-                  final maxAsistencias =
-                      asistenciasPorHora.values.isNotEmpty
-                          ? asistenciasPorHora.values.reduce(
-                            (a, b) => a > b ? a : b,
-                          )
-                          : 1;
-                  final altura =
-                      asistencias == 0
-                          ? 0.0
-                          : (asistencias / maxAsistencias) * 150;
+                  final maxAsistencias = asistenciasPorHora.values.isNotEmpty
+                      ? asistenciasPorHora.values.reduce(
+                          (a, b) => a > b ? a : b,
+                        )
+                      : 1;
+                  final altura = asistencias == 0
+                      ? 0.0
+                      : (asistencias / maxAsistencias) * 150;
 
                   return Container(
                     width: 30,
@@ -296,7 +292,8 @@ class _ReportsViewState extends State<ReportsView>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         if (asistencias > 0)
-                          Text('$asistencias', style: const TextStyle(fontSize: 10)),
+                          Text('$asistencias',
+                              style: const TextStyle(fontSize: 10)),
                         Container(
                           width: 20,
                           height: altura,

@@ -28,7 +28,8 @@ class _UserManagementViewState extends State<UserManagementView> {
   }
 
   void _showCreateUserDialog() {
-    showDialog(context: context, builder: (context) => const CreateUserDialog());
+    showDialog(
+        context: context, builder: (context) => const CreateUserDialog());
   }
 
   void _showChangePasswordDialog(UsuarioModel usuario) {
@@ -216,24 +217,23 @@ class _UserManagementViewState extends State<UserManagementView> {
                 return Switch(
                   value: usuario.isActive,
                   activeColor: Colors.green,
-                  onChanged:
-                      adminViewModel.isLoading
-                          ? null
-                          : (bool value) async {
-                            final messenger = ScaffoldMessenger.of(context);
-                            final success = await adminViewModel
-                                .toggleUserStatus(usuario.id, value);
-                            if (!success && mounted) {
-                              messenger.showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    '❌ Error al cambiar estado del usuario',
-                                  ),
-                                  backgroundColor: Colors.red,
+                  onChanged: adminViewModel.isLoading
+                      ? null
+                      : (bool value) async {
+                          final messenger = ScaffoldMessenger.of(context);
+                          final success = await adminViewModel.toggleUserStatus(
+                              usuario.id, value);
+                          if (!success && mounted) {
+                            messenger.showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  '❌ Error al cambiar estado del usuario',
                                 ),
-                              );
-                            }
-                          },
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
                 );
               },
             ),
@@ -260,19 +260,18 @@ class _UserManagementViewState extends State<UserManagementView> {
                   _showChangePasswordDialog(usuario);
                 }
               },
-              itemBuilder:
-                  (context) => [
-                    const PopupMenuItem(
-                      value: 'change_password',
-                      child: Row(
-                        children: [
-                          Icon(Icons.lock_reset, size: 18),
-                          SizedBox(width: 8),
-                          Text('Cambiar Contraseña'),
-                        ],
-                      ),
-                    ),
-                  ],
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'change_password',
+                  child: Row(
+                    children: [
+                      Icon(Icons.lock_reset, size: 18),
+                      SizedBox(width: 8),
+                      Text('Cambiar Contraseña'),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -326,14 +325,12 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
       password: _passwordController.text,
       rango: _selectedRango,
       estado: 'activo',
-      telefono:
-          _telefonoController.text.trim().isEmpty
-              ? null
-              : _telefonoController.text.trim(),
-      puertaACargo:
-          _puertaController.text.trim().isEmpty
-              ? null
-              : _puertaController.text.trim(),
+      telefono: _telefonoController.text.trim().isEmpty
+          ? null
+          : _telefonoController.text.trim(),
+      puertaACargo: _puertaController.text.trim().isEmpty
+          ? null
+          : _puertaController.text.trim(),
     );
 
     final bool success = await adminViewModel.createUsuario(nuevoUsuario);
@@ -474,14 +471,13 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
           builder: (context, adminViewModel, child) {
             return ElevatedButton(
               onPressed: adminViewModel.isLoading ? null : _handleCreate,
-              child:
-                  adminViewModel.isLoading
-                      ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                      : const Text('Crear Usuario'),
+              child: adminViewModel.isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Crear Usuario'),
             );
           },
         ),
@@ -537,7 +533,6 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
           children: [
             Text('Cambiar contraseña para: ${widget.usuario.nombreCompleto}'),
             const SizedBox(height: 16),
-
             CustomTextField(
               label: 'Nueva Contraseña',
               controller: _passwordController,
@@ -553,7 +548,6 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
               },
             ),
             const SizedBox(height: 16),
-
             CustomTextField(
               label: 'Confirmar Contraseña',
               controller: _confirmPasswordController,
@@ -581,14 +575,13 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
             return ElevatedButton(
               onPressed:
                   adminViewModel.isLoading ? null : _handleChangePassword,
-              child:
-                  adminViewModel.isLoading
-                      ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                      : const Text('Cambiar'),
+              child: adminViewModel.isLoading
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Cambiar'),
             );
           },
         ),

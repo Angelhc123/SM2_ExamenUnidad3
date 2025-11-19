@@ -37,9 +37,9 @@ class SessionGuardService extends ChangeNotifier {
 
   // Headers para requests
   Map<String, String> get _headers => {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  };
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
 
   /// Iniciar sesión de guardia con verificación de concurrencia
   Future<SessionResult> iniciarSesion({
@@ -175,14 +175,13 @@ class SessionGuardService extends ChangeNotifier {
         }
 
         // Verificar conflictos en nuestro punto de control
-        final conflictoEnPunto =
-            sesionesActivas
-                .where(
-                  (s) =>
-                      s['punto_control'] == _puntoControl &&
-                      s['session_token'] != _sessionToken,
-                )
-                .toList();
+        final conflictoEnPunto = sesionesActivas
+            .where(
+              (s) =>
+                  s['punto_control'] == _puntoControl &&
+                  s['session_token'] != _sessionToken,
+            )
+            .toList();
 
         if (conflictoEnPunto.isNotEmpty) {
           _hasConflict = true;

@@ -370,24 +370,23 @@ class _OfflineManagementViewState extends State<OfflineManagementView> {
         DateFormat('dd/MM/yyyy HH:mm').format(event.timestamp),
         style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
       ),
-      trailing:
-          event.retryCount > 0
-              ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: Colors.red.shade100,
-                  borderRadius: BorderRadius.circular(4),
+      trailing: event.retryCount > 0
+          ? Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.red.shade100,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                'Reintento ${event.retryCount}',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.red.shade700,
+                  fontWeight: FontWeight.w600,
                 ),
-                child: Text(
-                  'Reintento ${event.retryCount}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.red.shade700,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              )
-              : null,
+              ),
+            )
+          : null,
     );
   }
 
@@ -424,18 +423,16 @@ class _OfflineManagementViewState extends State<OfflineManagementView> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed:
-                    offlineService.isOnline && !offlineService.isSyncing
-                        ? () => _forceSyncEvents(offlineService)
-                        : null,
-                icon:
-                    offlineService.isSyncing
-                        ? const SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                        : const Icon(Icons.sync),
+                onPressed: offlineService.isOnline && !offlineService.isSyncing
+                    ? () => _forceSyncEvents(offlineService)
+                    : null,
+                icon: offlineService.isSyncing
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.sync),
                 label: Text(
                   offlineService.isSyncing
                       ? 'Sincronizando...'
@@ -452,10 +449,9 @@ class _OfflineManagementViewState extends State<OfflineManagementView> {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
-                onPressed:
-                    offlineService.getEventStatistics()['failed'] != 0
-                        ? () => _clearFailedEvents(offlineService)
-                        : null,
+                onPressed: offlineService.getEventStatistics()['failed'] != 0
+                    ? () => _clearFailedEvents(offlineService)
+                    : null,
                 icon: const Icon(Icons.clear_all),
                 label: const Text('Limpiar Eventos Fallidos'),
                 style: OutlinedButton.styleFrom(
@@ -497,24 +493,23 @@ class _OfflineManagementViewState extends State<OfflineManagementView> {
   Future<void> _clearFailedEvents(OfflineService offlineService) async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Confirmar Acción'),
-            content: const Text(
-              '¿Está seguro de que desea eliminar todos los eventos fallidos? Esta acción no se puede deshacer.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancelar'),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text('Eliminar'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Confirmar Acción'),
+        content: const Text(
+          '¿Está seguro de que desea eliminar todos los eventos fallidos? Esta acción no se puede deshacer.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
           ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text('Eliminar'),
+          ),
+        ],
+      ),
     );
 
     if (confirm == true) {
