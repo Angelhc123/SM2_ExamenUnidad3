@@ -22,7 +22,7 @@ dependencies:
   shimmer: ^3.0.0 # Replace with the latest version
   animations: ^2.0.8
   cupertino_icons: ^1.0.2
-  http: ^1.2.0
+  http: ^1.6.0
   flutter_nfc_kit: ^3.6.0
   shared_preferences: ^2.2.2
   sqflite: ^2.3.0
